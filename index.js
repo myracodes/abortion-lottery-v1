@@ -8,7 +8,7 @@ class Player {
         this.weeks;
     }
 }
-
+let incrementedId = 0;
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
 let playerPosition = 0;
@@ -261,6 +261,7 @@ function generatesBoxes() {
             console.log('malus');
             generateMalus(randomPosition);
         }
+        makesBoxesGoDown(incrementedId);
     }
 }
 
@@ -271,7 +272,8 @@ function generatesBoxes() {
  * takes a randomPosition as an argument?
  */
 function generateBonus(position) {
-    gameBoard.innerHTML += `<span class="bonus" style="top: 0; left: ${position}px;"></span>`;
+    incrementedId += 1;
+    gameBoard.innerHTML += `<span class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
 }
 
 /**
@@ -279,7 +281,8 @@ function generateBonus(position) {
  * calls generateRandomPosition()
  */
 function generateMalus(position) {
-    gameBoard.innerHTML += `<span class="malus" style="top: 0; left: ${position}px;"></span>`;
+    incrementedId += 1;
+    gameBoard.innerHTML += `<span class="malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
 }
 
 /**
@@ -296,8 +299,11 @@ function generateRandomPosition() {
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
-function makesBoxesGoDown() {
-    // 
+function makesBoxesGoDown(id) {
+    // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
+    // utiliser le request frame ou le timeout pour lui dire quand descendre / arrêter de descendre
+    let box = document.getElementById(id);
+
 }
 /**
  * checks the position and state of boxes
