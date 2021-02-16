@@ -1,9 +1,3 @@
-// const canvas = document.querySelector('canvas');
-// const c = canvas.getContext('2d');
-
-// canvas.width = innerWidth;
-// canvas.height = innerHeight;
-
 class Player {
     // list all the properties my player has
     constructor(x, y) {
@@ -18,10 +12,10 @@ class Player {
 
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
+let playerPosition = 180;
 let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
 let gameBoardWidth = gameBoard.style.width;
-let playerImage = document.getElementById('player-image');
 
 const player = new Player(x, y);
 
@@ -117,9 +111,11 @@ const numberOfWeeks = [{
 // BEFORE THE GAME STARTS
 // ---
 
-
 let pointsCounter = document.getElementById('points-counter');
+
 let startButton = document.getElementById('start-button');
+
+// slot machine buttons and blocks
 let slotMachineButton = document.getElementById('slot-machine-button');
 let slotMachine = document.getElementById('slot-machine');
 let slotMachineContent = document.getElementById('slot-machine-content');
@@ -178,13 +174,13 @@ function startGame() {
     // x launches the game
     // x only available after generatesCountry/Prosperity/Weeks have been used
     // x launches the eventListener
-    // appelle playerMoves 
-    // note : left key = 37 // right key = 39
+    // x appelle playerMoves 
+    // x note : left key = 37 // right key = 39
     slotMachine.classList.add('is-hidden');
     slotMachine.classList.remove('is-visible');
     gameBoard.classList.remove('is-hidden');
     gameBoard.classList.add('is-visible');
-
+    // if possible, replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
         console.log(playerCursor);
         if (event.keyCode === 37 && player.x > 5) {
@@ -202,33 +198,21 @@ function startGame() {
 // DURING THE GAME
 // ---
 
-let xTest = 100;
 
 function playerMovesRight() {
-    // player.x += 5;
-    // playerCursor.offsetLeft += 5;
-    // playerImage.offsetLeft +=5 ;
-    // stringToNumber(playerCursor.style.left);
-    // créer variable avec chiffre
-    //chiffre à incrémenter
-    // ajouter px (concat)
-    xTest += 5;
-    playerCursor.style.left = xTest + 'px';
-    
-    console.log(playerCursor.style.left);
+    playerPosition += 5;
+    playerCursor.style.left = playerPosition + 'px';
+    console.log('appuyé droite');
 }
 
 function playerMovesLeft() {
-    // player.x -= 5;
-    player.clientLeft -= 5;
-    playerCursor.offsetLeft -= 5;
+    playerPosition -= 5;
+    playerCursor.style.left = playerPosition + 'px';
     console.log('appuyééé gauche');
-    //déclarer
-    // stocker x dans une variable
 }
 
 /** prend une string en entrée et retourne un nb
- **/
+ */
 function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
     return parseInt(stringWithoutPx);
@@ -250,42 +234,59 @@ function generatesBoxes() {
 
 }
 
+/**
+ * makes the boxes go down on the screen towards the player
+ */
 function makesBoxesGoDown() {
-    // makes the boxes go down on the screen towards the player
+    // 
 }
-
+/**
+ * checks the position and state of boxes
+ * if box y = 0 ---> removes box from screen
+ * if collision ---> removes box from screen
+ */
 function removesBoxes() {
-    // checks the position and state of boxes
-    // if box y = 0 ---> removes box from screen
-    // if collision ---> removes box from screen
+
 }
 
+/**
+ * detects collision between the Player and the boxes;
+ * calls updatesPoints;
+ * calls isGameFinished;
+ */
 function detectsCollision() {
-    // detects collision between the Player and the boxes
-    // calls updatesPoints
-    //calls isGameFinished
+    
 }
 
+/**
+ * if collision with a bonus, adds points to this.points
+ * if collision with a malus, withdraws points from this.points
+ * displays updated points on the screen
+ */
 function updatesPoints() {
-    // if collision with a bonus, adds points to this.points
-    // if collision with a malus, withdraws points from this.points
-    // displays updated points on the screen
+
 }
 
+/**
+ * after each collision, checks if points <= 0 ------ if so, TRUE = GAME OVER
+ * after each collision, checks if points >= 1000 ------ if so, TRUE = YOU WON
+ * after each collision, if none of the above are true, return false
+ * returns boolean
+ * if TRUE: calls endGame()
+ */
 function isGameFinished() {
-    // after each collision, checks if points <= 0 ------ if so, TRUE = GAME OVER
-    // after each collision, checks if points >= 1000 ------ if so, TRUE = YOU WON
-    // after each collision, if none of the above are true, return false
-    // returns boolean
-    // if TRUE: calls endGame()
+
 }
 
+/**
+ * if nothing happens --> plays background music
+ * if collision with a bonus --> bonus sound
+ * if collision with a malus --> malus sound
+ * if game over --> game over sound
+ * if game won --> congrats sound
+ */
 function soundEffect() {
-    // if nothing happens --> plays background music
-    // if collision with a bonus --> bonus sound
-    // if collision with a malus --> malus sound
-    // if game over --> game over sound
-    // if game won --> congrats sound
+
 }
 
 
@@ -295,8 +296,11 @@ function soundEffect() {
 // END OF THE GAME
 // ---
 
+/**
+ * updates background music
+ * updates page with either WIN or LOSE text with information about access to vip
+ * displays thank you message and links (github)
+ */
 function endGame() {
-    // updates background music
-    // updates page with either WIN or LOSE text with information about access to vip
-    // displays thank you message and links (github)
+
 }
