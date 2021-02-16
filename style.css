@@ -17,13 +17,12 @@ bâtiments : planned parenthood, hospital, school, AN,
 html,
 body {
     margin: 0;
-    padding: 0;
+    padding: 0 100px;
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(216, 216, 216, 0.568);
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 }
 
 h1,
@@ -31,13 +30,13 @@ h2,
 h3,
 h4,
 h5 {
-    margin: 0, 0, 10px, 0;
-    padding: 0, 0, 10px, 0;
+    margin: 0;
+    padding: 0 0 20px 0;
 }
 
 h1,
 h2 {
-    /*font-family: 'Modak', cursive; */
+    text-align: center;
     font-family: 'Ultra', serif;
     /* font-family: 'Indie Flower', cursive; */
     font-size: 35pt;
@@ -109,7 +108,7 @@ h5 {
 
 /* .prosperity-block, .countries-block, .numberOfWeeks-block { */
 #slot-machine-content {
-    width: 70px;
+    width: 700px;
     padding: 0 10px 0 10px;
     position: absolute;
     top: 2000px;
