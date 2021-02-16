@@ -14,11 +14,10 @@ let x = playerCursor.style.left;
 let playerPosition = 0;
 let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
-let gameBoardWidth = gameBoard.style.width;
 
 const player = new Player(x, y);
 
-const bonuses = ["plane", "passport", "money" /*, "vacuum", "planned parenthood", "abortion pill", "education"*/ ];
+const bonuses = ["plane" /*, "passport", "money", "vacuum", "planned parenthood", "abortion pill", "education"*/ ];
 const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
 // note : harmoniser les points et rajouter des pays
@@ -65,19 +64,19 @@ const countries = [{
     }
 ];
 const prosperity = [{
-        wealth: "poor, -100pts",
+        wealth: "Player is poor, -100pts",
         points: -100
     },
     {
-        wealth: "average, -50pts",
+        wealth: "Player has an average wealth, -50pts",
         points: -50
     },
     {
-        wealth: "wealthy, +100pts",
+        wealth: "Player is wealthy, +100pts",
         points: 100
     },
     {
-        wealth: "very rich, +150pts",
+        wealth: "Player is very rich, +150pts",
         points: 150
     }
 ];
@@ -128,10 +127,14 @@ slotMachineButton.addEventListener('click', () => {
 
 startButton.addEventListener('click', () => {
     startGame();
-})
+});
 
+let boxButton = document.getElementById('box-button');
+boxButton.addEventListener('click', () => {
+    generatesBoxes();
+});
 /**
- * ajouter timeout aux 3 fonctions generateXX
+ * add timeout to all 3 generate___ functions to make their result appear one after another
  */
 function launchesSlotMachine() {
     generatesCountry();
@@ -141,11 +144,14 @@ function launchesSlotMachine() {
     startButton.classList.remove('is-hidden');
     slotMachineButton.classList.add('is-hidden');
     slotMachineButton.classList.remove('is-visible');
+
+    
+
     pointsCounter.innerHTML = player.points;
 }
 /**
  * x generates points in the beginning depending on your country
- * x adds points to this.points
+ * x adds points to player.points
  */
 function generatesCountry() {
     player.country = countries[Math.floor(Math.random() * (countries.length - 1))];
@@ -154,16 +160,16 @@ function generatesCountry() {
 }
 /**
  * x generates points in the beginning depending on your Prosperity
- * x adds points to this.points
+ * x adds points to player.points
  */
 function generatesProsperity() {
     player.wealth = prosperity[Math.floor(Math.random() * (prosperity.length - 1))];
     player.points += player.wealth.points;
-    prosperityBlock.innerHTML = 'Player\'s wealth is ' + player.wealth.wealth;
+    prosperityBlock.innerHTML = player.wealth.wealth;
 }
 /**
  * x generates points depending on the number of weeks of pregnancy
- * x adds points to this.points
+ * x adds points to player.points
  */
 function generatesWeeks() {
     player.weeks = numberOfWeeks[Math.floor(Math.random() * (numberOfWeeks.length - 1))];
@@ -172,10 +178,10 @@ function generatesWeeks() {
 }
 
 /**
- * x launches the game
- * x only available after generatesCountry/Prosperity/Weeks have been used
- * x launches the eventListener
- * x appelle playerMoves 
+ * x is called by a click on the start button
+ * x is only available after launchesSlotMachine has been called
+ * x launches the eventListener on the keypress
+ * x calls playerMoves 
  * x note : left key = 37 // right key = 39
  */
 function startGame() {
@@ -202,26 +208,29 @@ function startGame() {
 // ---
 
 /**
- * @author Myriam
+ * @author Myriam Mira
+ * Moves player 5px to the right when right arrow on the keyboard is pressed
  */
 function playerMovesRight() {
     if (playerPosition < 400) {
         playerPosition += 5;
         playerCursor.style.left = playerPosition + 'px';
-        console.log('appuyé droite')
     }
 }
 
+/**
+ * Moves player 5px to the left when left arrow on the keyboard is pressed
+ */
 function playerMovesLeft() {
     if (playerPosition > 0) {
         playerPosition -= 5;
         playerCursor.style.left = playerPosition + 'px';
-        console.log('appuyééé gauche')
     }
 }
 
 /**
  * x prend une string en entrée et retourne un nb
+ * finalement j'ai trouvé une autre méthode plus simple pour faire ça donc not used
  */
 function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
@@ -235,7 +244,6 @@ function stringToNumber(string) {
  *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
  *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
  *  generates boxes at y=0 and x = random
- *  box.position sur l'axe x est comprise entre 0 et 400
  *  calls makesBoxesGoDown() for each box
  *  x stops when checkIfGameIsFinished returns true
  * if box class contains bonus or malus, alors appliquer un style ?
@@ -243,11 +251,15 @@ function stringToNumber(string) {
 function generatesBoxes() {
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     if (isGameFinished === false) {
-        let bonusOrMalus = Math.floor(Math.random() * 2);
-        if (bonusOrMalus <= 1) {
-            generateBonus();
-        } else if (bonusOrMalus > 1){
-            generateMalus();
+        let bonusOrMalus = Math.random();
+        console.log(bonusOrMalus);
+        let randomPosition = generateRandomPosition();
+        if (bonusOrMalus < 0.5) {
+            console.log('bonus');
+            generateBonus(randomPosition);
+        } else {
+            console.log('malus');
+            generateMalus(randomPosition);
         }
     }
 }
@@ -256,26 +268,26 @@ function generatesBoxes() {
  * is called by generateBoxes()
  * calls generateRandomPosition()
  * creates a bonus picked randomly among bonus array
+ * takes a randomPosition as an argument?
  */
-function generateBonus() {
-    // appelle generateRandomPosition
-    //     gameBoard.innerHTML += '<div><span class="box bonus"></span></div>';
+function generateBonus(position) {
+    gameBoard.innerHTML += `<span class="bonus" style="top: 0; left: ${position}px;"></span>`;
 }
 
 /**
  * is called by generateBoxes()
  * calls generateRandomPosition()
  */
-function generateMalus() {
-    // appelle generateRandomPosition
-    //     gameBoard.innerHTML += '<div><span class="box malus"></span></div>';
+function generateMalus(position) {
+    gameBoard.innerHTML += `<span class="malus" style="top: 0; left: ${position}px;"></span>`;
 }
 
 /**
  * 
  */
 function generateRandomPosition() {
-    // let randomPosition = Math.floor(Math.random() * 400);
+    let randomPosition = Math.floor(Math.random() * 400);
+    return randomPosition;
 }
 
 /**

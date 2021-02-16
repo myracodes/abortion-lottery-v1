@@ -36,17 +36,20 @@ h1, h2, h3, h4, h5 {
     width: 500px;
 }
 
-#slot-machine-button {
+#slot-machine-button, #box-button {
     text-align: center;
     border: solid 3px black;
     margin-bottom: 10px;
-    width: 250px;
+    padding: 10px;
+    width: fit-content;
 }
 
-#slot-machine-button:hover, #start-button:hover {
+#slot-machine-button:hover, #start-button:hover, #box-button:hover {
     border: solid 5px red;
+    color: red;
+    background-color: white;
     margin-bottom: 10px;
-    width: 250px;
+    width: fit-content;
     cursor: pointer;
 }
 
@@ -59,7 +62,8 @@ h1, h2, h3, h4, h5 {
     text-align: center;
     border: solid 3px black;
     margin-bottom: 10px;
-    width: 250px;
+    padding: 10px;
+    width: fit-content;
 }
 
 #slot-machine-content {
@@ -83,19 +87,15 @@ h1, h2, h3, h4, h5 {
 .bonus {
     width: 50px;
     height: 50px;
-    background-color: green;
+    border: solid 3px green;
     position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .malus {
     width: 50px;
     height: 50px;
-    background-color: red;
+    border: solid 3px red;
     position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .player > img {
