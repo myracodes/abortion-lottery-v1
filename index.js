@@ -16,6 +16,13 @@ class Player {
     }
 }
 
+const playerCursor = document.getElementById('player');
+let x = playerCursor.offsetLeft;
+let y = playerCursor.offsetTop;
+const gameBoard = document.getElementById('game-board');
+let gameBoardWidth = gameBoard.style.width;
+let playerImage = document.getElementById('player-image');
+
 const player = new Player(x, y);
 
 const boxes = [
@@ -23,7 +30,8 @@ const boxes = [
     ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ]
 ];
 
-// note : harmoniser les points et rajouter des pays -- illégal = -200pts // sous conditions = 0pt // droit récent = 50pts // droit ancré = 100pts // nb de semaines plus long = 150pts
+// note : harmoniser les points et rajouter des pays
+//illégal= -200pts // sous conditions= 0pt // droit récent= 50pts // droit ancré= 100pts // nb de semaines plus long= 150pts
 const countries = [{
         name: "Thaïland, +50pts",
         points: 50
@@ -33,7 +41,7 @@ const countries = [{
         points: -200
     },
     {
-        name: "Sri Lanka, 0pt",
+        name: "Sri Lanka, +0pt",
         points: 0
     },
     {
@@ -41,7 +49,7 @@ const countries = [{
         points: -100
     },
     {
-        name: "New Zealand, 0pt",
+        name: "New Zealand, +0pt",
         points: 0
     },
     {
@@ -53,7 +61,7 @@ const countries = [{
         points: 100
     },
     {
-        name: "Tunisia, 0pt", // sous conditions restrictives
+        name: "Tunisia, +0pt", // sous conditions restrictives
         points: 0
     },
     {
@@ -87,7 +95,7 @@ const numberOfWeeks = [{
         points: 50
     },
     {
-        weeks: "6 weeks, 0pt",
+        weeks: "6 weeks, +0pt",
         points: 0
     },
     {
@@ -109,16 +117,15 @@ const numberOfWeeks = [{
 // BEFORE THE GAME STARTS
 // ---
 
-const playerCursor = document.getElementById('player');
-let x = playerCursor.offsetLeft;
-let y = playerCursor.offsetTop;
-const gameBoard = document.getElementById('game-board');
-let gameBoardWidth = gameBoard.style.width;
 
 let pointsCounter = document.getElementById('points-counter');
 let startButton = document.getElementById('start-button');
 let slotMachineButton = document.getElementById('slot-machine-button');
 let slotMachine = document.getElementById('slot-machine');
+let slotMachineContent = document.getElementById('slot-machine-content');
+let countriesBlock = document.getElementById('countries-block');
+let prosperityBlock = document.getElementById('prosperity-block');
+let numberOfWeeksBlock = document.getElementById('numberOfWeeks-block');
 
 player.points.innerHTML = this.points;
 
@@ -144,27 +151,27 @@ function launchesSlotMachine() {
 }
 
 function generatesCountry() {
-    // generates points in the beginning depending on your country
-    // adds points to this.points
-    player.country = countries[Math.floor(Math.random()*(countries.length-1))];
+    // x generates points in the beginning depending on your country
+    // x adds points to this.points
+    player.country = countries[Math.floor(Math.random() * (countries.length - 1))];
     player.points += player.country.points;
-    console.log('Player\'s country is ' + player.country.name);
+    countriesBlock.innerHTML = 'Player is living in ' + player.country.name;
 }
 
 function generatesProsperity() {
-    // generates points in the beginning depending on your Prosperity
-    // adds points to this.points
-    player.wealth = prosperity[Math.floor(Math.random()*(prosperity.length-1))];
+    // x generates points in the beginning depending on your Prosperity
+    // x adds points to this.points
+    player.wealth = prosperity[Math.floor(Math.random() * (prosperity.length - 1))];
     player.points += player.wealth.points;
-    console.log('Player\'s wealth is ' + player.wealth.wealth);
+    prosperityBlock.innerHTML = 'Player\'s wealth is ' + player.wealth.wealth;
 }
 
 function generatesWeeks() {
-    // generates points depending on the number of weeks of pregnancy
-    // adds points to this.points
-    player.weeks = numberOfWeeks[Math.floor(Math.random()*(numberOfWeeks.length-1))];
+    // x generates points depending on the number of weeks of pregnancy
+    // x adds points to this.points
+    player.weeks = numberOfWeeks[Math.floor(Math.random() * (numberOfWeeks.length - 1))];
     player.points += player.weeks.points;
-    console.log('Player\'s weeks is ' + player.weeks.weeks);
+    numberOfWeeksBlock.innerHTML = 'Player has been pregnant for ' + player.weeks.weeks;
 }
 
 function startGame() {
@@ -177,12 +184,12 @@ function startGame() {
     slotMachine.classList.remove('is-visible');
     gameBoard.classList.remove('is-hidden');
     gameBoard.classList.add('is-visible');
-    
+
     document.addEventListener("keydown", event => {
         console.log(playerCursor);
         if (event.keyCode === 37 && player.x > 5) {
             playerMovesLeft();
-        } else if (event.keyCode === 39 && player.x < gameBoard.clientWidth-5) {
+        } else if (event.keyCode === 39 && player.x < gameBoard.clientWidth - 5) {
             playerMovesRight();
         }
     });
@@ -198,17 +205,19 @@ function startGame() {
 function playerMovesRight() {
     player.x += 5;
     playerCursor.offsetLeft += 5;
+    playerImage.offsetLeft +=5 ;
     console.log('appuyééé droite');
 }
 
 function playerMovesLeft() {
-    player.x -= 5;
+    // player.x -= 5;
+    player.clientLeft -= 5;
     playerCursor.offsetLeft -= 5;
     console.log('appuyééé gauche');
 }
 
 /** prend une string en entrée et retourne un nb
- * */
+ **/
 function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
     return parseInt(stringWithoutPx);
@@ -218,13 +227,13 @@ function stringToNumber(string) {
 
 }
 /**
- * generates boxes, either bonus or malus
- *   use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
-  *  calls two other functions? generateBonus and generatemalus? Or works on its own? 
-  *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
-  *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
-  *  generates boxes at y=0 and x = random
-  *  stops when isGameFinished returns true
+ *  generates boxes, either bonus or malus
+ *  use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
+ *  calls two other functions? generateBonus and generatemalus? Or works on its own? 
+ *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
+ *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
+ *  generates boxes at y=0 and x = random
+ *  stops when isGameFinished returns true
  */
 function generatesBoxes() {
 
