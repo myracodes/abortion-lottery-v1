@@ -17,8 +17,8 @@ class Player {
 }
 
 const playerCursor = document.getElementById('player');
-let x = playerCursor.offsetLeft;
-let y = playerCursor.offsetTop;
+let x = playerCursor.style.left;
+let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
 let gameBoardWidth = gameBoard.style.width;
 let playerImage = document.getElementById('player-image');
@@ -202,11 +202,20 @@ function startGame() {
 // DURING THE GAME
 // ---
 
+let xTest = 100;
+
 function playerMovesRight() {
-    player.x += 5;
-    playerCursor.offsetLeft += 5;
-    playerImage.offsetLeft +=5 ;
-    console.log('appuyééé droite');
+    // player.x += 5;
+    // playerCursor.offsetLeft += 5;
+    // playerImage.offsetLeft +=5 ;
+    // stringToNumber(playerCursor.style.left);
+    // créer variable avec chiffre
+    //chiffre à incrémenter
+    // ajouter px (concat)
+    xTest += 5;
+    playerCursor.style.left = xTest + 'px';
+    
+    console.log(playerCursor.style.left);
 }
 
 function playerMovesLeft() {
@@ -214,6 +223,8 @@ function playerMovesLeft() {
     player.clientLeft -= 5;
     playerCursor.offsetLeft -= 5;
     console.log('appuyééé gauche');
+    //déclarer
+    // stocker x dans une variable
 }
 
 /** prend une string en entrée et retourne un nb

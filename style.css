@@ -54,8 +54,6 @@ h1, h2, h3, h4, h5 {
 .prosperity-block, .countries-block, .numberOfWeeks-block {
     width: 70px;
     padding: 0 10px 0 10px;
-    position: relative;
-    top: 200px;
 }
 
 #start-button {
@@ -70,8 +68,10 @@ h1, h2, h3, h4, h5 {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 150px;
+    width: 250px;
     font-size: small;
+    position: relative;
+    top: 0px;
 }
 
 #game-board {
@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5 {
 #player {
     border: 1px solid red;
     position: absolute;
-    left: 180px;
+    left: 50px;
     top: calc(500px - 70px);
 }
 
