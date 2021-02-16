@@ -12,7 +12,7 @@ class Player {
 
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
-let playerPosition = 180;
+let playerPosition = 0;
 let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
 let gameBoardWidth = gameBoard.style.width;
@@ -183,9 +183,9 @@ function startGame() {
     // if possible, replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
         console.log(playerCursor);
-        if (event.keyCode === 37 && player.x > 5) {
+        if (event.keyCode === 37) {
             playerMovesLeft();
-        } else if (event.keyCode === 39 && player.x < gameBoard.clientWidth - 5) {
+        } else if (event.keyCode === 39) {
             playerMovesRight();
         }
     });
@@ -198,17 +198,20 @@ function startGame() {
 // DURING THE GAME
 // ---
 
-
 function playerMovesRight() {
-    playerPosition += 5;
-    playerCursor.style.left = playerPosition + 'px';
-    console.log('appuyé droite');
+    if (playerPosition < 345) {
+        playerPosition += 5;
+        playerCursor.style.left = playerPosition + 'px';
+        console.log('appuyé droite')
+    }
 }
 
 function playerMovesLeft() {
-    playerPosition -= 5;
-    playerCursor.style.left = playerPosition + 'px';
-    console.log('appuyééé gauche');
+    if (playerPosition > 0) {
+        playerPosition -= 5;
+        playerCursor.style.left = playerPosition + 'px';
+        console.log('appuyééé gauche')
+    }
 }
 
 /** prend une string en entrée et retourne un nb
@@ -255,7 +258,7 @@ function removesBoxes() {
  * calls isGameFinished;
  */
 function detectsCollision() {
-    
+
 }
 
 /**
