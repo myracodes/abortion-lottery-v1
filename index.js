@@ -1,5 +1,4 @@
 class Player {
-    // list all the properties my player has
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -133,9 +132,10 @@ startButton.addEventListener('click', () => {
     startGame();
 })
 
-// cacher le boulton slot machine après l'avoir utilisé
+/**
+ * ajouter timeout aux 3 fonctions generateXX
+ */
 function launchesSlotMachine() {
-    // ajouter timeout aux 3 fonctions generateXX
     generatesCountry();
     generatesProsperity();
     generatesWeeks();
@@ -145,37 +145,42 @@ function launchesSlotMachine() {
     slotMachineButton.classList.remove('is-visible');
     pointsCounter.innerHTML = player.points;
 }
-
+/**
+ * x generates points in the beginning depending on your country
+ * x adds points to this.points
+ */
 function generatesCountry() {
-    // x generates points in the beginning depending on your country
-    // x adds points to this.points
     player.country = countries[Math.floor(Math.random() * (countries.length - 1))];
     player.points += player.country.points;
     countriesBlock.innerHTML = 'Player is living in ' + player.country.name;
 }
-
+/**
+ * x generates points in the beginning depending on your Prosperity
+ * x adds points to this.points
+ */
 function generatesProsperity() {
-    // x generates points in the beginning depending on your Prosperity
-    // x adds points to this.points
     player.wealth = prosperity[Math.floor(Math.random() * (prosperity.length - 1))];
     player.points += player.wealth.points;
     prosperityBlock.innerHTML = 'Player\'s wealth is ' + player.wealth.wealth;
 }
-
+/**
+ * x generates points depending on the number of weeks of pregnancy
+ * x adds points to this.points
+ */
 function generatesWeeks() {
-    // x generates points depending on the number of weeks of pregnancy
-    // x adds points to this.points
     player.weeks = numberOfWeeks[Math.floor(Math.random() * (numberOfWeeks.length - 1))];
     player.points += player.weeks.points;
     numberOfWeeksBlock.innerHTML = 'Player has been pregnant for ' + player.weeks.weeks;
 }
 
+/**
+ * x launches the game
+ * x only available after generatesCountry/Prosperity/Weeks have been used
+ * x launches the eventListener
+ * x appelle playerMoves 
+ * x note : left key = 37 // right key = 39
+ */
 function startGame() {
-    // x launches the game
-    // x only available after generatesCountry/Prosperity/Weeks have been used
-    // x launches the eventListener
-    // x appelle playerMoves 
-    // x note : left key = 37 // right key = 39
     slotMachine.classList.add('is-hidden');
     slotMachine.classList.remove('is-visible');
     gameBoard.classList.remove('is-hidden');
@@ -191,7 +196,7 @@ function startGame() {
     });
     // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
-    startButton.classList.remove('is-visible')
+    startButton.classList.remove('is-visible');
 }
 
 // ---
@@ -199,7 +204,7 @@ function startGame() {
 // ---
 
 function playerMovesRight() {
-    if (playerPosition < 345) {
+    if (playerPosition < 400) {
         playerPosition += 5;
         playerCursor.style.left = playerPosition + 'px';
         console.log('appuyé droite')
@@ -214,31 +219,43 @@ function playerMovesLeft() {
     }
 }
 
-/** prend une string en entrée et retourne un nb
+/**
+ * x prend une string en entrée et retourne un nb
  */
 function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
     return parseInt(stringWithoutPx);
-
-    // let currentPosition = this.player.x;
-    // let updatedPosition;
-
 }
+
+
+
 /**
- *  generates boxes, either bonus or malus
+ *  generates boxes (either bonus or malus) every 1 sec;
  *  use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
  *  calls two other functions? generateBonus and generatemalus? Or works on its own? 
  *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
  *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
  *  generates boxes at y=0 and x = random
- *  stops when isGameFinished returns true
+ *  box.position sur l'axe x est comprise entre 0 et 400
+ *  calls makesBoxesGoDown() for each box
+ *  x stops when checkIfGameIsFinished returns true
+ * if box class contains bonus or malus, alors appliquer un style ?
  */
 function generatesBoxes() {
+    let randomPosition = Math.floor(Math.random() * 400);
+    do {
+        gameBoard.innerHTML += '<div><span class="box malus"></span></div>';
+    } while (isGameFinished = false);
+
+    // 
 
 }
 
 /**
  * makes the boxes go down on the screen towards the player
+ *  box.position sur axe vertical est comprise entre 0 et 500
+ *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
+ *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
 function makesBoxesGoDown() {
     // 
@@ -255,7 +272,7 @@ function removesBoxes() {
 /**
  * detects collision between the Player and the boxes;
  * calls updatesPoints;
- * calls isGameFinished;
+ * calls checkIfGameIsFinished;
  */
 function detectsCollision() {
 
@@ -274,11 +291,20 @@ function updatesPoints() {
  * after each collision, checks if points <= 0 ------ if so, TRUE = GAME OVER
  * after each collision, checks if points >= 1000 ------ if so, TRUE = YOU WON
  * after each collision, if none of the above are true, return false
- * returns boolean
- * if TRUE: calls endGame()
+ * x if TRUE: calls youWon() or youLost()
+ * x returns boolean
  */
-function isGameFinished() {
-
+let isGameFinished = false;
+function checkIfGameIsFinished() {
+    if (pointsCounter >= 1000) {
+        // call youWon()
+        isGameFinished = true;
+        return isGameFinished;
+    } else if (pointsCounter <= 0) {
+        // call youLost()
+        isGameFinished = true;
+        return isGameFinished;
+    }
 }
 
 /**
@@ -292,9 +318,6 @@ function soundEffect() {
 
 }
 
-
-
-
 // ---
 // END OF THE GAME
 // ---
@@ -304,6 +327,10 @@ function soundEffect() {
  * updates page with either WIN or LOSE text with information about access to vip
  * displays thank you message and links (github)
  */
-function endGame() {
+function youWon() {
+
+}
+
+function youLost() {
 
 }
