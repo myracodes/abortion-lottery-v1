@@ -1,0 +1,114 @@
+/*
+Background: ciel style mario (OAT adele)
+ciel : infinite loop/repeat infinite
+route : fixe mais avec qqs éléments (bâtiments) qui déroulent en boucle pour donner illusion d'avancer
+bâtiments : planned parenthood, hospital, school, AN,
+*/
+
+html, body {
+    margin: 0, 0, 30px, 0;
+    padding: 0, 0, 30px, 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: salmon;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0, 0, 30px, 0;
+    padding: 0, 0, 30px, 0;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0, 0, 30px, 0;
+}
+
+#slot-machine {
+    position: absolute;
+}
+
+#slot-machine > img {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+}
+
+#slot-machine-button {
+    text-align: center;
+    border: solid 3px black;
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+#slot-machine-button:hover, #start-button:hover {
+    border: solid 5px red;
+    margin-bottom: 10px;
+    width: 250px;
+    cursor: pointer;
+}
+
+#start-button {
+    text-align: center;
+    border: solid 3px black;
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+#slot-machine-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#game-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    border: solid 5px black;
+}
+
+.bonus {
+    width: 50px;
+    height: 50px;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.malus {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.player > img {
+    width: 70px;
+    height: auto;
+}
+
+#player {
+    border: 1px solid red;
+    position: absolute;
+    left: 180px;
+    top: calc(500px - 70px);
+}
+
+.is-hidden {
+    visibility: hidden;
+}
+
+.is-visible {
+    visibility: visible;
+}

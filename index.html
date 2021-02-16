@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abortion Lottery</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="game-header">
+        <h2>Abortion lottery!</h2>
+        <h3>They told you it was a right, huh?<br>(They lied.)</h3>
+        <div>
+            <h4>Run the slot machine to see where life got you started!</h4>
+        </div>
+        <div>
+            <h5>Depending on your country, your personal wealth, and the number of weeks of pregnancy, the game might
+                get easier... or harder.</h5>
+        </div>
+    </div>
+
+    <div>Current points: <span id="points-counter">500</span></div>
+    <div id="slot-machine-button" class="is-visible">OPERATE SLOT MACHINE</div>
+    <div id="start-button" class="is-hidden">START GAME</div>
+    <div id="slot-machine" class='is-visible'>
+        <img src="./img/slot-machine-empty-full-transparent.png" alt="slot-machine">
+        <div id="slot-machine-content">
+            <span id="countries-block"></span>
+            <span id="prosperity-block"></span>
+            <span id="numberOfWeeks-block"></span>
+        </div>
+    </div>
+    <div id="game-board" class="is-hidden">
+        <!-- <canvas> -->
+        <div><span class="box malus"></span></div>
+        <div><span class="box bonus"></span></div>
+        <div class="player" id="player"><img src="./img/perso-normal-face.png" alt="player-normal-face"></div>
+        <!-- </canvas> -->
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
