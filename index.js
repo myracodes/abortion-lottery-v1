@@ -18,10 +18,8 @@ let gameBoardWidth = gameBoard.style.width;
 
 const player = new Player(x, y);
 
-const boxes = [
-    ["plane", "passport", "money" /*, "vacuum", "planned parenthood", "abortion pill", "education"*/ ],
-    ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ]
-];
+const bonuses = ["plane", "passport", "money" /*, "vacuum", "planned parenthood", "abortion pill", "education"*/ ];
+const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
 // note : harmoniser les points et rajouter des pays
 //illégal= -200pts // sous conditions= 0pt // droit récent= 50pts // droit ancré= 100pts // nb de semaines plus long= 150pts
@@ -230,11 +228,6 @@ function stringToNumber(string) {
     return parseInt(stringWithoutPx);
 }
 
-
-
-// créer fonctions pour découper les autres fonctions
-// créer une fonctino pour générer chiffre random(max, min)
-
 /**
  *  generates boxes (either bonus or malus) every 1 sec;
  *  use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
@@ -248,36 +241,41 @@ function stringToNumber(string) {
  * if box class contains bonus or malus, alors appliquer un style ?
  */
 function generatesBoxes() {
+    // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     if (isGameFinished === false) {
-        
+        let bonusOrMalus = Math.floor(Math.random() * 2);
+        if (bonusOrMalus <= 1) {
+            generateBonus();
+        } else if (bonusOrMalus > 1){
+            generateMalus();
+        }
     }
-    // request animation frame (calculer avec modulo pour décider l'intervalle à la place du do while)
+}
 
-    // let randomPosition = Math.floor(Math.random() * 400);
+/**
+ * is called by generateBoxes()
+ * calls generateRandomPosition()
+ * creates a bonus picked randomly among bonus array
+ */
+function generateBonus() {
+    // appelle generateRandomPosition
+    //     gameBoard.innerHTML += '<div><span class="box bonus"></span></div>';
+}
 
+/**
+ * is called by generateBoxes()
+ * calls generateRandomPosition()
+ */
+function generateMalus() {
+    // appelle generateRandomPosition
     //     gameBoard.innerHTML += '<div><span class="box malus"></span></div>';
-   
-
-    // 
-
-//    appelle generateBonus OU generate malus
-// appelle generateRandomPosition
-
 }
 
 /**
  * 
  */
 function generateRandomPosition() {
-    
-}
-
-function generateBonus() {
-
-}
-
-function generateMalus() {
-
+    // let randomPosition = Math.floor(Math.random() * 400);
 }
 
 /**
