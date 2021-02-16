@@ -1,3 +1,6 @@
+/**
+ *  @author Myriam
+ */
 class Player {
     constructor(x, y) {
         this.x = x;
@@ -8,6 +11,7 @@ class Player {
         this.weeks;
     }
 }
+
 let incrementedId = 0;
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
@@ -144,8 +148,8 @@ function launchesSlotMachine() {
     startButton.classList.remove('is-hidden');
     slotMachineButton.classList.add('is-hidden');
     slotMachineButton.classList.remove('is-visible');
-
-    
+    boxButton.classList.remove('is-hidden');
+    boxButton.classList.add('is-visible');
 
     pointsCounter.innerHTML = player.points;
 }
@@ -189,6 +193,7 @@ function startGame() {
     slotMachine.classList.remove('is-visible');
     gameBoard.classList.remove('is-hidden');
     gameBoard.classList.add('is-visible');
+    slotMachineContent.classList.add('is-hidden');
     // if possible, replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
         console.log(playerCursor);
@@ -285,11 +290,8 @@ function generateMalus(position) {
     gameBoard.innerHTML += `<span class="malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
 }
 
-/**
- * 
- */
 function generateRandomPosition() {
-    let randomPosition = Math.floor(Math.random() * 400);
+    let randomPosition = Math.floor(Math.random() * 345);
     return randomPosition;
 }
 
@@ -315,7 +317,6 @@ function removesBoxes() {
 }
 
 /**
- * @author Myriam
  * detects collision between the Player and the boxes;
  * calls updatesPoints;
  * calls checkIfGameIsFinished;
@@ -341,6 +342,7 @@ function updatesPoints() {
  * x returns boolean
  */
 let isGameFinished = false;
+
 function checkIfGameIsFinished() {
     if (pointsCounter >= 1000) {
         // call youWon()

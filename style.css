@@ -5,7 +5,8 @@ route : fixe mais avec qqs éléments (bâtiments) qui déroulent en boucle pour
 bâtiments : planned parenthood, hospital, school, AN,
 */
 
-html, body {
+html,
+body {
     margin: 0, 0, 10px, 0;
     padding: 0, 0, 10px, 0;
     font-family: 'Roboto', Arial, sans-serif;
@@ -15,7 +16,11 @@ html, body {
     align-items: center;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     margin: 0, 0, 10px, 0;
     padding: 0, 0, 10px, 0;
 }
@@ -27,16 +32,19 @@ h1, h2, h3, h4, h5 {
     margin: 0, 0, 30px, 0;
 }
 
-#slot-machine > img {
+#slot-machine {
     margin-top: 0px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 600px;
+    position: static;
+    z-index: 1;
 }
 
-#slot-machine-button, #box-button {
+#slot-machine-button,
+#box-button {
     text-align: center;
     border: solid 3px black;
     margin-bottom: 10px;
@@ -44,18 +52,26 @@ h1, h2, h3, h4, h5 {
     width: fit-content;
 }
 
-#slot-machine-button:hover, #start-button:hover, #box-button:hover {
-    border: solid 5px red;
+#slot-machine-button:hover,
+#start-button:hover,
+#box-button:hover {
+    border: solid 3px red;
     color: red;
     background-color: white;
     margin-bottom: 10px;
     width: fit-content;
     cursor: pointer;
+    transition: ease-out 1s;
 }
 
-.prosperity-block, .countries-block, .numberOfWeeks-block {
+/* .prosperity-block, .countries-block, .numberOfWeeks-block { */
+#slot-machine-content {
     width: 70px;
     padding: 0 10px 0 10px;
+    position: absolute;
+    top: 2000px;
+    z-index: 0;
+    /* top: 50px; */
 }
 
 #start-button {
@@ -98,12 +114,9 @@ h1, h2, h3, h4, h5 {
     position: absolute;
 }
 
-.player > img {
+#player {
     width: 70px;
     height: auto;
-}
-
-#player {
     position: relative;
     top: calc(500px - 70px);
 }
