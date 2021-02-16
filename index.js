@@ -203,6 +203,9 @@ function startGame() {
 // DURING THE GAME
 // ---
 
+/**
+ * @author Myriam
+ */
 function playerMovesRight() {
     if (playerPosition < 400) {
         playerPosition += 5;
@@ -229,6 +232,9 @@ function stringToNumber(string) {
 
 
 
+// créer fonctions pour découper les autres fonctions
+// créer une fonctino pour générer chiffre random(max, min)
+
 /**
  *  generates boxes (either bonus or malus) every 1 sec;
  *  use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
@@ -242,12 +248,35 @@ function stringToNumber(string) {
  * if box class contains bonus or malus, alors appliquer un style ?
  */
 function generatesBoxes() {
-    let randomPosition = Math.floor(Math.random() * 400);
-    do {
-        gameBoard.innerHTML += '<div><span class="box malus"></span></div>';
-    } while (isGameFinished = false);
+    if (isGameFinished === false) {
+        
+    }
+    // request animation frame (calculer avec modulo pour décider l'intervalle à la place du do while)
+
+    // let randomPosition = Math.floor(Math.random() * 400);
+
+    //     gameBoard.innerHTML += '<div><span class="box malus"></span></div>';
+   
 
     // 
+
+//    appelle generateBonus OU generate malus
+// appelle generateRandomPosition
+
+}
+
+/**
+ * 
+ */
+function generateRandomPosition() {
+    
+}
+
+function generateBonus() {
+
+}
+
+function generateMalus() {
 
 }
 
@@ -270,6 +299,7 @@ function removesBoxes() {
 }
 
 /**
+ * @author Myriam
  * detects collision between the Player and the boxes;
  * calls updatesPoints;
  * calls checkIfGameIsFinished;
