@@ -272,22 +272,32 @@ function generatesBoxes() {
 
 /**
  * is called by generateBoxes()
- * calls generateRandomPosition()
+ * x calls generateRandomPosition()
  * creates a bonus picked randomly among bonus array
- * takes a randomPosition as an argument?
+ * x takes a randomPosition as an argument
+ * x adds a span to innerHTML
  */
 function generateBonus(position) {
     incrementedId += 1;
-    gameBoard.innerHTML += `<span class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
+    let newBonus = `<span class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
+    let span = document.createElement('span');
+    span.innerHTML += newBonus;
+    gameBoard.appendChild(span);
 }
 
 /**
  * is called by generateBoxes()
- * calls generateRandomPosition()
+ * x calls generateRandomPosition()
+ * creates a malus picked randomly among malus array
+ * x takes a randomPosition as an argument
+ * x adds a span to innerHTML
  */
 function generateMalus(position) {
     incrementedId += 1;
-    gameBoard.innerHTML += `<span class="malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
+    let newMalus = `<span class="malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
+    let span = document.createElement('span');
+    span.innerHTML += newMalus;
+    gameBoard.appendChild(span);
 }
 
 function generateRandomPosition() {
