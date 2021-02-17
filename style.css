@@ -168,7 +168,7 @@ h5 {
     height: 50px;
     border: solid 2px black;
     background-color: green;
-    position: relative;
+    position: absolute;
 }
 
 .malus {

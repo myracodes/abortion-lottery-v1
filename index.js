@@ -16,9 +16,7 @@ let incrementedId = 0;
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
 let playerPosition = 0;
-// let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
-const currentBox = document.getElementById(`${incrementedId}`);
 
 let allBoxes = document.querySelectorAll('.box');
 
@@ -29,11 +27,10 @@ const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience 
 
 // note : harmoniser les points et rajouter des pays
 //illégal= -200pts // sous conditions= -50pts // droit récent= +0pt // droit ancré= 100pts // nb de semaines plus long= 150pts
-const countries = [
-    {
+const countries = [{
         name: "Afghanistan, -100pt", // toléré si danger pour la vie de la mère
         points: -100
-    },{
+    }, {
         name: "Argentina, +0pt", // recently legalized
         points: 0
     },
@@ -246,7 +243,7 @@ function startGame() {
  * Moves player 5px to the right when right arrow on the keyboard is pressed
  */
 function playerMovesRight() {
-    if (playerPosition < 400) {
+    if (playerPosition < 345) {
         playerPosition += 5;
         playerCursor.style.left = playerPosition + 'px';
     }
@@ -308,10 +305,12 @@ function generatesBoxes() {
  */
 function generateBonus(position) {
     incrementedId += 1;
-    let newBonus = `<div class="box bonus" id="box${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    let newBonus = `<div class="box bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
     let div = document.createElement('div');
     div.innerHTML += newBonus;
     gameBoard.appendChild(div);
+    let box = document.getElementById(incrementedId);
+    makeBoxesGoDown(box);
 }
 
 /**
@@ -327,6 +326,9 @@ function generateMalus(position) {
     let div = document.createElement('div');
     div.innerHTML += newMalus;
     gameBoard.appendChild(div);
+
+    let box = document.getElementById(incrementedId);
+    makeBoxesGoDown(box);
 }
 
 function generateRandomPosition() {
@@ -340,32 +342,40 @@ function generateRandomPosition() {
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
-function makeBoxesGoDown(id, position) {
+function makeBoxesGoDown(box) {
+    console.log("debut de method");
+    console.log(box);
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     //     // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
     //     // utiliser window.cancelAnimationFrame() pour lui dire quand descendre / arrêter de descendre
     // //    ;
-
+    
     // console.log(currentBox); //tant que y > 500
     //     currentBox.style.top = z + 'px';
     // } else  {
-    //     // if supérieur à 495, remove span
-    // }
-    
-    let nthBox = document.querySelectorAll(`.box`);
-    // let nthBoxPosition = nthBox.style.top;
-    console.log(nthBox);
-    // if (isGameFinished === false) {
-    //     if (nthBoxPosition < 450) {
-    //         nthBoxPosition += 5;
-    //         nthBoxPosition += 'px';
-    //     }
-    // }
-    window.requestAnimationFrame(makeBoxesGoDown);
+        //     // if supérieur à 495, remove span
+        // }
+        let boxYPosition = stringToNumber(box.style.top);
+        console.log("box style");
+        console.log(box.style);
+        console.log("box style top");
+        console.log(box.style.top);
+        console.log("boxYposition");
+        console.log(boxYPosition);
+        if (isGameFinished === false) {
+            console.log('game finished false marche');        
+        if (boxYPosition < 445) {
+            console.log('position marche');
+            boxYPosition += 5;
+            box.style.top = boxYPosition + 'px';
+            console.log("fin de method");
+            window.requestAnimationFrame(makeBoxesGoDown(box));
+        }
 
+    }
 }
-makeBoxesGoDown();
 
+// let y = box.style.top;
 /**
  * checks the position and state of boxes
  * if box y = 0 ---> removes box from screen
