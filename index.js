@@ -18,7 +18,7 @@ let x = playerCursor.style.left;
 let playerPosition = 0;
 // let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
-const currentBox = document.getElementById(incrementedId); 
+const currentBox = document.getElementById(`${incrementedId}`);
 
 let allBoxes = document.querySelectorAll('.box');
 
@@ -28,47 +28,71 @@ const bonuses = ["plane" /*, "passport", "money", "vacuum", "planned parenthood"
 const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
 // note : harmoniser les points et rajouter des pays
-//illégal= -200pts // sous conditions= 0pt // droit récent= 50pts // droit ancré= 100pts // nb de semaines plus long= 150pts
-const countries = [{
-        name: "Thaïland, +50pts",
-        points: 50
-    },
+//illégal= -200pts // sous conditions= -50pts // droit récent= +0pt // droit ancré= 100pts // nb de semaines plus long= 150pts
+const countries = [
     {
-        name: "Salvador, -200pts", // illegal
-        points: -200
-    },
-    {
-        name: "Sri Lanka, +0pt",
+        name: "Afghanistan, -100pt", // toléré si danger pour la vie de la mère
+        points: -100
+    },{
+        name: "Argentina, +0pt", // recently legalized
         points: 0
     },
     {
-        name: "Poland, -100pts",
-        points: -100
+        name: "Chili, -50pts", // toléré si danger pour la vie de la mère / viol / non-viabilité du foetus
+        points: -50
+    },
+    {
+        name: "Congo, -200pts", // illegal en ttes circonstances
+        points: -200
+    },
+    {
+        name: "Honduras, -200pts", // illegal en ttes circonstances
+        points: -200
+    },
+    {
+        name: "Ireland, +0pt", // légal seulement depuis 2018
+        points: 0
+    },
+    {
+        name: "Laos, -200pts", // illegal
+        points: -200
+    },
+    {
+        name: "Malte, -200pts", // illegal en ttes circonstances 18 mois à 3 ans de prison. Seul pays UE prohibant totalement ivg
+        points: -200
     },
     {
         name: "New Zealand, +0pt",
         points: 0
     },
     {
+        name: "Poland, -100pts", // récemment menacé
+        points: -100
+    },
+    {
+        name: "Salvador, -200pts", // illegal en ttes circonstances (homicide aggravé - 30 à 50 ans de réclusion crim, prison pr fausses couches)
+        points: -200
+    },
+    {
         name: "Sénégal, -200pts", // illegal
         points: -200
+    },
+    {
+        name: "Sri Lanka, -50pt", // toléré si danger pour la vie de la mère
+        points: -50
     },
     {
         name: "Sweden, +100pts", // til 18 weeks
         points: 100
     },
     {
-        name: "Tunisia, +0pt", // sous conditions restrictives
-        points: 0
-    },
-    {
-        name: "Ireland, +50pts", // seulement depuis 2018
+        name: "Thaïland, +50pts",
         points: 50
     },
     {
-        name: "Honduras, -200pts", // illegal en ttes circonstances
-        points: -200
-    }
+        name: "Tunisia, +0pt", // sous conditions restrictives
+        points: 0
+    },
 ];
 const prosperity = [{
         wealth: "Poor, -100pts",
@@ -127,6 +151,8 @@ let prosperityBlock = document.getElementById('prosperity-block');
 let numberOfWeeksBlock = document.getElementById('numberOfWeeks-block');
 
 player.points.innerHTML = this.points;
+
+let isGameFinished = false;
 
 slotMachineButton.addEventListener('click', () => {
     launchesSlotMachine();
@@ -314,35 +340,31 @@ function generateRandomPosition() {
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
-function makeBoxesGoDown(id) {
+function makeBoxesGoDown(id, position) {
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
-    //     (function() {
-
-    //     })
     //     // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
-    //     // utiliser le request frame ou le timeout pour lui dire quand descendre / arrêter de descendre
-    //     let box = document.getElementById(id);
-    //     // toutes les xx secondes, faire bouger de 5px vers le bas
-    //     // quand position = 0
-    //     window.requestAnimationFrame(step);
-    // //    window.cancelAnimationFrame();
+    //     // utiliser window.cancelAnimationFrame() pour lui dire quand descendre / arrêter de descendre
+    // //    ;
 
-    for (id = 1; id < id + 1; id++) {
-        const element = array[id];
-        
-    }
-    console.log(currentBox); //tant que y > 500
-    let z = currentBox.style.top;
-    if (z + 'px' < 450 + 'px') {
-        z -= 5;
-        currentBox.style.top = z + 'px';
-    } else if (isGameFinished === false) {
-        // supérieur à 495 ? --> id.classlist.add('is-hidden'); // better option would be to just remove span to avoid any issue with them staying there
-    }
-
-    window.requestAnimationFrame(makeBoxesGoDown)
+    // console.log(currentBox); //tant que y > 500
+    //     currentBox.style.top = z + 'px';
+    // } else  {
+    //     // if supérieur à 495, remove span
+    // }
+    
+    let nthBox = document.querySelectorAll(`.box`);
+    // let nthBoxPosition = nthBox.style.top;
+    console.log(nthBox);
+    // if (isGameFinished === false) {
+    //     if (nthBoxPosition < 450) {
+    //         nthBoxPosition += 5;
+    //         nthBoxPosition += 'px';
+    //     }
+    // }
+    window.requestAnimationFrame(makeBoxesGoDown);
 
 }
+makeBoxesGoDown();
 
 /**
  * checks the position and state of boxes
@@ -379,7 +401,6 @@ function updatePoints() {
  * x if TRUE: calls youWon() or youLost()
  * x returns boolean
  */
-let isGameFinished = false;
 
 function checkIfGameIsFinished() {
     if (pointsCounter >= 1000) {
