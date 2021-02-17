@@ -249,13 +249,14 @@ function stringToNumber(string) {
  *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
  *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
  *  generates boxes at y=0 and x = random
- *  calls makesBoxesGoDown() for each box
+ *  calls makeBoxesGoDown() for each box
  *  x stops when checkIfGameIsFinished returns true
  * if box class contains bonus or malus, alors appliquer un style ?
  */
 function generatesBoxes() {
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     if (isGameFinished === false) {
+
         let bonusOrMalus = Math.random();
         console.log(bonusOrMalus);
         let randomPosition = generateRandomPosition();
@@ -266,7 +267,7 @@ function generatesBoxes() {
             console.log('malus');
             generateMalus(randomPosition);
         }
-        makesBoxesGoDown(incrementedId);
+        makeBoxesGoDown(incrementedId);
     }
 }
 
@@ -279,10 +280,10 @@ function generatesBoxes() {
  */
 function generateBonus(position) {
     incrementedId += 1;
-    let newBonus = `<span class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
-    let span = document.createElement('span');
-    span.innerHTML += newBonus;
-    gameBoard.appendChild(span);
+    let newBonus = `<div class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    let div = document.createElement('div');
+    div.innerHTML += newBonus;
+    gameBoard.appendChild(div);
 }
 
 /**
@@ -306,23 +307,28 @@ function generateRandomPosition() {
 }
 
 /**
- * makes the boxes go down on the screen towards the player
+ * makes the boxes move down on the screen towards the player
  *  box.position sur axe vertical est comprise entre 0 et 500
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
-function makesBoxesGoDown(id) {
+function makeBoxesGoDown(id) {
     // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
     // utiliser le request frame ou le timeout pour lui dire quand descendre / arrêter de descendre
     let box = document.getElementById(id);
+    // prendre box + id = l'argument 'id'
+    // toutes les xx secondes, faire bouger de 5px vers le bas
+    // quand position = 0
+    
 
 }
+
 /**
  * checks the position and state of boxes
  * if box y = 0 ---> removes box from screen
  * if collision ---> removes box from screen
  */
-function removesBoxes() {
+function removeBoxes() {
 
 }
 
@@ -331,7 +337,7 @@ function removesBoxes() {
  * calls updatesPoints;
  * calls checkIfGameIsFinished;
  */
-function detectsCollision() {
+function detectCollision() {
 
 }
 
@@ -340,7 +346,7 @@ function detectsCollision() {
  * if collision with a malus, withdraws points from this.points
  * displays updated points on the screen
  */
-function updatesPoints() {
+function updatePoints() {
     player.points += // selon nb de points de l'élément touché
     pointsCounter.innerHTML = player.points;
 }

@@ -159,6 +159,7 @@ h5 {
     position: absolute;
     top: 600px;
     border: solid 5px black;
+    background-color: white;
 }
 
 .bonus {
@@ -166,7 +167,7 @@ h5 {
     height: 50px;
     border: solid 2px black;
     background-color: green;
-    position: absolute;
+    position: relative;
 }
 
 .malus {
