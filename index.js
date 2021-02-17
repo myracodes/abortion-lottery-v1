@@ -117,7 +117,7 @@ let startButton = document.getElementById('start-button');
 
 // slot machine buttons and blocks
 let slotMachineButton = document.getElementById('slot-machine-button');
-let slotMachine = document.getElementById('slot-machine');
+let slotMachine = document.getElementById('slot-machine-image');
 let slotMachineContent = document.getElementById('slot-machine-content');
 let countriesBlock = document.getElementById('countries-block');
 let prosperityBlock = document.getElementById('prosperity-block');
@@ -331,7 +331,8 @@ function detectsCollision() {
  * displays updated points on the screen
  */
 function updatesPoints() {
-
+    player.points += // selon nb de points de l'élément touché
+    pointsCounter.innerHTML = player.points;
 }
 
 /**
