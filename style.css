@@ -118,6 +118,7 @@ h5 {
     cursor: pointer;
     font-size: 1.5em;
     transition: ease-out 0.5s;
+    /* box-shadow: grey; */
 }
 
 #slot-machine-content {

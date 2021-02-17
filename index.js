@@ -2,9 +2,9 @@
  *  @author Myriam
  */
 class Player {
-    constructor(x, y) {
+    constructor(x) {
         this.x = x;
-        this.y = y;
+        // this.y = y;
         this.points = 500;
         this.country;
         this.wealth;
@@ -16,10 +16,12 @@ let incrementedId = 0;
 const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
 let playerPosition = 0;
-let y = playerCursor.style.top;
+// let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
+// const currentBox = document.getElementsByClassName(`${incrementedId}`); 
+// let z = currentBox.style.top;
 
-const player = new Player(x, y);
+const player = new Player(x);
 
 const bonuses = ["plane" /*, "passport", "money", "vacuum", "planned parenthood", "abortion pill", "education"*/ ];
 const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
@@ -255,8 +257,8 @@ function stringToNumber(string) {
  */
 function generatesBoxes() {
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
+    // ajouter feature pour vérifier qu'il n'y a pas déjà une boîte à cet endroit ?
     if (isGameFinished === false) {
-
         let bonusOrMalus = Math.random();
         console.log(bonusOrMalus);
         let randomPosition = generateRandomPosition();
@@ -267,7 +269,7 @@ function generatesBoxes() {
             console.log('malus');
             generateMalus(randomPosition);
         }
-        makeBoxesGoDown(incrementedId);
+        window.requestAnimationFrame(makeBoxesGoDown(incrementedId));
     }
 }
 
@@ -313,13 +315,26 @@ function generateRandomPosition() {
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
 function makeBoxesGoDown(id) {
-    // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
-    // utiliser le request frame ou le timeout pour lui dire quand descendre / arrêter de descendre
-    let box = document.getElementById(id);
-    // prendre box + id = l'argument 'id'
-    // toutes les xx secondes, faire bouger de 5px vers le bas
-    // quand position = 0
-    
+    //     (function() {
+
+    //     })
+    //     // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
+    //     // utiliser le request frame ou le timeout pour lui dire quand descendre / arrêter de descendre
+    //     let box = document.getElementById(id);
+    //     // toutes les xx secondes, faire bouger de 5px vers le bas
+    //     // quand position = 0
+    //     window.requestAnimationFrame(step);
+    // //    window.cancelAnimationFrame();
+    // console.log('INCEPTION'); //tant que y > 500
+    let currentBox = document.getElementsByClassName(id);
+    if (currentBox.style.top < 450) {
+        currentBox.style.top -= 5;
+        currentBox.style.top += 'px';
+    } else if (isGameFinished === false) {
+        // supérieur à 495 ? --> id.classlist.add('is-hidden');
+    }
+
+    window.requestAnimationFrame(makeBoxesGoDown)
 
 }
 
@@ -348,7 +363,7 @@ function detectCollision() {
  */
 function updatePoints() {
     player.points += // selon nb de points de l'élément touché
-    pointsCounter.innerHTML = player.points;
+        pointsCounter.innerHTML = player.points;
 }
 
 /**
