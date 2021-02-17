@@ -129,15 +129,16 @@ h5 {
     color: black;
     text-align: center;
     background-color: rgba(255, 255, 255);
-    /* position: relative; */
+    position: relative;
     z-index: 5;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     width: 350px;
+    height: 130px;
     font-size: small;
-    /* top: 50px; */
+    bottom: 360px;
 }
 
 #countries-block, #numberOfWeeks-block, #prosperity-block {
