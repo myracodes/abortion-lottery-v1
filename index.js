@@ -18,8 +18,9 @@ let x = playerCursor.style.left;
 let playerPosition = 0;
 // let y = playerCursor.style.top;
 const gameBoard = document.getElementById('game-board');
-// const currentBox = document.getElementsByClassName(`${incrementedId}`); 
-// let z = currentBox.style.top;
+const currentBox = document.getElementById(incrementedId); 
+
+let allBoxes = document.querySelectorAll('.box');
 
 const player = new Player(x);
 
@@ -256,7 +257,6 @@ function stringToNumber(string) {
  * if box class contains bonus or malus, alors appliquer un style ?
  */
 function generatesBoxes() {
-    // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     // ajouter feature pour vérifier qu'il n'y a pas déjà une boîte à cet endroit ?
     if (isGameFinished === false) {
         let bonusOrMalus = Math.random();
@@ -282,7 +282,7 @@ function generatesBoxes() {
  */
 function generateBonus(position) {
     incrementedId += 1;
-    let newBonus = `<div class="bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    let newBonus = `<div class="box bonus" id="box${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
     let div = document.createElement('div');
     div.innerHTML += newBonus;
     gameBoard.appendChild(div);
@@ -297,10 +297,10 @@ function generateBonus(position) {
  */
 function generateMalus(position) {
     incrementedId += 1;
-    let newMalus = `<span class="malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></span>`;
-    let span = document.createElement('span');
-    span.innerHTML += newMalus;
-    gameBoard.appendChild(span);
+    let newMalus = `<div class="box malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    let div = document.createElement('div');
+    div.innerHTML += newMalus;
+    gameBoard.appendChild(div);
 }
 
 function generateRandomPosition() {
@@ -315,6 +315,7 @@ function generateRandomPosition() {
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
 function makeBoxesGoDown(id) {
+    // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     //     (function() {
 
     //     })
@@ -325,13 +326,18 @@ function makeBoxesGoDown(id) {
     //     // quand position = 0
     //     window.requestAnimationFrame(step);
     // //    window.cancelAnimationFrame();
-    // console.log('INCEPTION'); //tant que y > 500
-    let currentBox = document.getElementsByClassName(id);
-    if (currentBox.style.top < 450) {
-        currentBox.style.top -= 5;
-        currentBox.style.top += 'px';
+
+    for (id = 1; id < id + 1; id++) {
+        const element = array[id];
+        
+    }
+    console.log(currentBox); //tant que y > 500
+    let z = currentBox.style.top;
+    if (z + 'px' < 450 + 'px') {
+        z -= 5;
+        currentBox.style.top = z + 'px';
     } else if (isGameFinished === false) {
-        // supérieur à 495 ? --> id.classlist.add('is-hidden');
+        // supérieur à 495 ? --> id.classlist.add('is-hidden'); // better option would be to just remove span to avoid any issue with them staying there
     }
 
     window.requestAnimationFrame(makeBoxesGoDown)
