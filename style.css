@@ -60,8 +60,6 @@ h2 {
     }
 }
 
-div,
-span,
 h3,
 h4,
 h5 {
@@ -116,9 +114,14 @@ h5 {
 #slot-machine-content {
     width: 700px;
     padding: 0 10px 0 10px;
-    position: absolute;
-    top: 2000px;
-    z-index: -1;
+    font-family: 'Ranchers', cursive;
+    border: solid 3px black;
+    color: black;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.781);
+    /* position: absolute; */
+    /* top: 2000px; */
+    z-index: 0;
     /* top: 50px; */
 }
 
