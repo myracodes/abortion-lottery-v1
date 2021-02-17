@@ -68,19 +68,19 @@ const countries = [{
     }
 ];
 const prosperity = [{
-        wealth: "Player is poor, -100pts",
+        wealth: "Poor, -100pts",
         points: -100
     },
     {
-        wealth: "Player has an average wealth, -50pts",
+        wealth: "Average wealth, -50pts",
         points: -50
     },
     {
-        wealth: "Player is wealthy, +100pts",
+        wealth: "Wealthy, +100pts",
         points: 100
     },
     {
-        wealth: "Player is very rich, +150pts",
+        wealth: "Very rich, +150pts",
         points: 150
     }
 ];
@@ -160,7 +160,7 @@ function launchesSlotMachine() {
 function generatesCountry() {
     player.country = countries[Math.floor(Math.random() * (countries.length - 1))];
     player.points += player.country.points;
-    countriesBlock.innerHTML = 'Player is living in ' + player.country.name;
+    countriesBlock.innerHTML = 'Living in ' + player.country.name;
 }
 /**
  * x generates points in the beginning depending on your Prosperity
@@ -178,7 +178,7 @@ function generatesProsperity() {
 function generatesWeeks() {
     player.weeks = numberOfWeeks[Math.floor(Math.random() * (numberOfWeeks.length - 1))];
     player.points += player.weeks.points;
-    numberOfWeeksBlock.innerHTML = 'Player has been pregnant for ' + player.weeks.weeks;
+    numberOfWeeksBlock.innerHTML = 'Pregnant for ' + player.weeks.weeks;
 }
 
 /**
