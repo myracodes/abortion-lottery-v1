@@ -4,8 +4,7 @@
 class Player {
     constructor(x) {
         this.x = x;
-        // this.y = y;
-        this.points = 10;
+        this.points = 500;
         this.country;
         this.wealth;
         this.weeks;
@@ -177,6 +176,7 @@ const numberOfWeeks = [{
 // BEFORE THE GAME STARTS
 // ---
 
+let firstGame = true;
 let pointsCounter = document.getElementById('points-counter');
 
 let startButton = document.getElementById('start-button');
@@ -258,20 +258,26 @@ function startGame() {
     gameBoard.classList.add('is-visible');
     slotMachineContent.classList.add('is-hidden');
     slotMachineContent.classList.remove('is-visible');
+    
+    isGameFinished = false;
     // replace keyCode by the most recent feature -- KeyboardEvent.code maybe
-    document.addEventListener("keydown", event => {
-        if (event.keyCode === 37) {
-            playerMovesLeft();
-        } else if (event.keyCode === 39) {
-            playerMovesRight();
-        }
-        detectCollisionAll();
-    });
+
     startButton.classList.add('is-hidden');
     startButton.classList.remove('is-visible');
-    setInterval(() => {
-        generatesBoxes();
-    }, 1000);
+    if (firstGame) {
+        document.addEventListener("keydown", event => {
+            if (event.keyCode === 37) {
+                playerMovesLeft();
+            } else if (event.keyCode === 39) {
+                playerMovesRight();
+            }
+            detectCollisionAll();
+        });
+        setInterval(() => {
+            generatesBoxes();
+        }, 1000);
+    }
+    firstGame = false;
 }
 
 // ---
@@ -283,7 +289,7 @@ function startGame() {
  */
 function playerMovesRight() {
     if (playerPosition < 345) {
-        playerPosition += 5;
+        playerPosition += 8;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
@@ -293,7 +299,7 @@ function playerMovesRight() {
  */
 function playerMovesLeft() {
     if (playerPosition > 0) {
-        playerPosition -= 5;
+        playerPosition -= 8;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
@@ -518,7 +524,6 @@ function resetGame() {
     countriesBlock.innerHTML = '';
     prosperityBlock.innerHTML = '';
     numberOfWeeksBlock.innerHTML = '';
-    isGameFinished = false;
     Array.from(allBoxes).forEach(element => {
         removeBox(element)
     });
