@@ -366,6 +366,7 @@ function makeBoxesGoDown(box) {
             console.log('game finished false marche');        
         if (boxYPosition < 445) {
             console.log('position marche');
+            setTimeout(function(){ }, 3000);
             boxYPosition += 5;
             box.style.top = boxYPosition + 'px';
             console.log("fin de method");
@@ -374,6 +375,12 @@ function makeBoxesGoDown(box) {
 
     }
 }
+
+
+// function addsFivePixels(){
+
+// }
+
 
 // let y = box.style.top;
 /**

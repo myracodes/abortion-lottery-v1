@@ -17,28 +17,29 @@ bâtiments : planned parenthood, hospital, school, AN,
 html,
 body {
     padding: 0 100px;
-    font-family: 'Roboto', Arial, sans-serif;
+    /* font-family: 'Roboto', Arial, sans-serif; */
+    font-family: 'Indie Flower', cursive;
     /* background-color: rgba(216, 216, 216, 0.568); */
     display: flex;
     flex-direction: column;
     align-items: center;
     background-image: url('./img/hanger-pattern-2.jpg');
     background-repeat: repeat;
-    width: 1000px;
+    width: auto;
 }
 
 h1,
 h2 {
     text-align: center;
     font-family: 'Ultra', serif;
-    /* font-family: 'Indie Flower', cursive; */
-    font-size: 35pt;
+    font-size: 30pt;
     color: rgb(211, 46, 46);
     animation-duration: 2s;
     animation-name: slidein;
     background-color: rgba(255, 255, 255, 0.781);
     margin-top: 20px;
-    padding: 0 0 20px 0;
+    margin-bottom: 10px;
+    padding: 0;
     box-sizing: content-box;
 }
 
@@ -60,14 +61,16 @@ h5 {
     font-family: 'Calibri', Arial, Helvetica, sans-serif;
     background-color: rgba(255, 255, 255, 0.781);
     margin: 0;
-    padding: 0 0 20px 0;
+    padding: 0 0 15px 0;
+    text-align: center;
+    width: 400px;
 }
 
 .game-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0, 0, 10px, 0;
+    margin: 0;
     background-color: rgba(255, 255, 255, 0.781);
 }
 
@@ -90,7 +93,7 @@ h5 {
 #points-block {
     text-align: center;
     border: solid 3px black;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 10px;
     width: fit-content;
     font-family: 'Ranchers', cursive;
@@ -101,11 +104,11 @@ h5 {
     background-color: black;
     color: ivory;
     width: 180px;
-    font-size: 17pt;
+    font-size: 15pt;
 }
 
 #points-counter {
-    font-size: 30pt;
+    font-size: 25pt;
 }
 
 #slot-machine-button:hover,
