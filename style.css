@@ -7,7 +7,7 @@ bâtiments : planned parenthood, hospital, school, AN,
 
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 /*font-family: 'Modak', cursive; */
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap'); */
 /* font-family: 'Indie Flower', cursive; */
 @import url('https://fonts.googleapis.com/css2?family=Ranchers&display=swap');
 /* font-family: 'Ranchers', cursive; */
@@ -17,9 +17,7 @@ bâtiments : planned parenthood, hospital, school, AN,
 html,
 body {
     padding: 0 100px;
-    /* font-family: 'Roboto', Arial, sans-serif; */
-    font-family: 'Indie Flower', cursive;
-    /* background-color: rgba(216, 216, 216, 0.568); */
+    font-family: 'Calibri', Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,6 +92,7 @@ h5 {
 
 #slot-machine-button,
 #start-button,
+#reset-button,
 #box-button,
 #points-block {
     text-align: center;
@@ -118,6 +117,7 @@ h5 {
 
 #slot-machine-button:hover,
 #start-button:hover,
+#reset-button:hover,
 #box-button:hover {
     border: solid 3px red;
     color: red;
@@ -154,7 +154,8 @@ h5 {
     width: 65px;
 }
 
-#start-button {
+#start-button,
+#reset-button {
     text-align: center;
     border: solid 3px black;
     margin-bottom: 10px;

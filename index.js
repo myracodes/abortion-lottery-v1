@@ -17,6 +17,9 @@ const playerCursor = document.getElementById('player');
 let x = playerCursor.style.left;
 let playerPosition = 0;
 const gameBoard = document.getElementById('game-board');
+let wonDiv = document.getElementById('won');
+let lostDiv = document.getElementById('lost');
+const resetButton = document.getElementById('reset-button');
 
 // getElements is better here because it stays up to date (querySelectorAll would require to be udpated)
 let allBoxes = document.getElementsByClassName('box');
@@ -254,6 +257,7 @@ function startGame() {
     gameBoard.classList.remove('is-hidden');
     gameBoard.classList.add('is-visible');
     slotMachineContent.classList.add('is-hidden');
+    slotMachineContent.classList.remove('is-visible');
     // replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
         if (event.keyCode === 37) {
@@ -478,7 +482,11 @@ function soundEffect() {
 function stopGame() {
     gameBoard.classList.add('is-hidden');
     gameBoard.classList.remove('is-visible');
-    // ajouter bouton rejouer
+    resetButton.classList.add('is-visible');
+    resetButton.classList.remove('is-hidden');
+    resetButton.addEventListener('click', () => {
+        resetGame();
+    });
 }
 
 /**
@@ -487,14 +495,39 @@ function stopGame() {
  * displays thank you message and links (github)
  */
 function youWon() {
-    let wonDive = document.getElementById('won');
-    wonDive.classList.add('is-visible');
-    wonDive.classList.remove('is-hidden');
+    wonDiv.classList.add('is-visible');
+    wonDiv.classList.remove('is-hidden');
 }
 
 function youLost() {
-    let lostDiv = document.getElementById('lost');
     lostDiv.classList.add('is-visible');
     lostDiv.classList.remove('is-hidden');
 }
 
+function resetGame() {
+    slotMachineButton.classList.add('is-visible');
+    slotMachineButton.classList.remove('is-hidden');
+    slotMachine.classList.add('is-visible');
+    slotMachine.classList.remove('is-hidden');
+    resetButton.classList.add('is-hidden');
+    resetButton.classList.remove('is-visible');
+    slotMachineContent.classList.add('is-visible');
+    slotMachineContent.classList.remove('is-hidden');
+    player.points = 500;
+    pointsCounter.innerHTML = player.points;
+    countriesBlock.innerHTML = '';
+    prosperityBlock.innerHTML = '';
+    numberOfWeeksBlock.innerHTML = '';
+    isGameFinished = false;
+    Array.from(allBoxes).forEach(element => {
+        removeBox(element)
+    });
+    if (wonDiv.classList.contains('is-visible')) {
+        wonDiv.classList.remove('is-visible');
+        wonDiv.classList.add('is-hidden');
+    };
+    if (lostDiv.classList.contains('is-visible')) {
+        lostDiv.classList.remove('is-visible');
+        lostDiv.classList.add('is-hidden');
+    }
+}
