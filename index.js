@@ -18,7 +18,7 @@ let x = playerCursor.style.left;
 let playerPosition = 0;
 const gameBoard = document.getElementById('game-board');
 
-let allBoxes = document.querySelectorAll('.box');
+let allBoxes = document.getElementsByClassName('box');
 
 const player = new Player(x);
 
@@ -147,7 +147,7 @@ let countriesBlock = document.getElementById('countries-block');
 let prosperityBlock = document.getElementById('prosperity-block');
 let numberOfWeeksBlock = document.getElementById('numberOfWeeks-block');
 
-player.points.innerHTML = this.points;
+pointsCounter.innerHTML = player.points;
 
 let isGameFinished = false;
 
@@ -174,8 +174,6 @@ function launchesSlotMachine() {
     startButton.classList.remove('is-hidden');
     slotMachineButton.classList.add('is-hidden');
     slotMachineButton.classList.remove('is-visible');
-    boxButton.classList.remove('is-hidden');
-    boxButton.classList.add('is-visible');
 
     pointsCounter.innerHTML = player.points;
 }
@@ -220,7 +218,7 @@ function startGame() {
     gameBoard.classList.remove('is-hidden');
     gameBoard.classList.add('is-visible');
     slotMachineContent.classList.add('is-hidden');
-    // if possible, replace keyCode by the most recent feature -- KeyboardEvent.code maybe
+    // replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
         console.log(playerCursor);
         if (event.keyCode === 37) {
@@ -232,6 +230,8 @@ function startGame() {
     // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
     startButton.classList.remove('is-visible');
+    boxButton.classList.remove('is-hidden');
+    boxButton.classList.add('is-visible');
 }
 
 // ---
@@ -283,13 +283,10 @@ function generatesBoxes() {
     // ajouter feature pour vérifier qu'il n'y a pas déjà une boîte à cet endroit ?
     if (isGameFinished === false) {
         let bonusOrMalus = Math.random();
-        console.log(bonusOrMalus);
         let randomPosition = generateRandomPosition();
         if (bonusOrMalus < 0.5) {
-            console.log('bonus');
             generateBonus(randomPosition);
         } else {
-            console.log('malus');
             generateMalus(randomPosition);
         }
         window.requestAnimationFrame(makeBoxesGoDown(incrementedId));
@@ -342,47 +339,22 @@ function generateRandomPosition() {
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
+
+
 function makeBoxesGoDown(box) {
-    console.log("debut de method");
-    console.log(box);
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
-    //     // prend un id en argument - doit être appelée au bon moment pour faire descendre l'élément que je veux faire descendre
-    //     // utiliser window.cancelAnimationFrame() pour lui dire quand descendre / arrêter de descendre
-    // //    ;
-    
-    // console.log(currentBox); //tant que y > 500
-    //     currentBox.style.top = z + 'px';
-    // } else  {
-        //     // if supérieur à 495, remove span
-        // }
-        let boxYPosition = stringToNumber(box.style.top);
-        console.log("box style");
-        console.log(box.style);
-        console.log("box style top");
-        console.log(box.style.top);
-        console.log("boxYposition");
-        console.log(boxYPosition);
-        if (isGameFinished === false) {
-            console.log('game finished false marche');        
+    let boxYPosition = stringToNumber(box.style.top);
+    if (isGameFinished === false) {
         if (boxYPosition < 445) {
-            console.log('position marche');
-            setTimeout(function(){ }, 3000);
-            boxYPosition += 5;
+            boxYPosition += 1;
             box.style.top = boxYPosition + 'px';
-            console.log("fin de method");
-            window.requestAnimationFrame(makeBoxesGoDown(box));
+            setInterval(function () {}, 1000);
+            window.requestAnimationFrame(() => makeBoxesGoDown(box));
         }
 
     }
 }
 
-
-// function addsFivePixels(){
-
-// }
-
-
-// let y = box.style.top;
 /**
  * checks the position and state of boxes
  * if box y = 0 ---> removes box from screen

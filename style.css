@@ -82,7 +82,7 @@ h5 {
 
 #slot-machine-image {
     margin-top: 0px;
-    width: 600px;
+    width: 500px;
     position: static;
     z-index: 10;
 }
@@ -125,7 +125,6 @@ h5 {
 }
 
 #slot-machine-content {
-    width: 700px;
     padding: 0;
     font-family: 'Ranchers', cursive;
     border: solid 3px black;
@@ -138,10 +137,10 @@ h5 {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 350px;
-    height: 120px;
-    font-size: 13pt;
-    bottom: 360px;
+    width: 270px;
+    height: 100px;
+    font-size: 12pt;
+    bottom: 300px;
 }
 
 #countries-block, #numberOfWeeks-block, #prosperity-block {
