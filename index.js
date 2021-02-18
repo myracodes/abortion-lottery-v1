@@ -1,5 +1,5 @@
 /**
- *  @author Myriam
+ *  @author Myriam Mira
  */
 class Player {
     constructor(x) {
@@ -23,7 +23,28 @@ let allBoxes = document.getElementsByClassName('box');
 
 const player = new Player(x);
 
-const bonuses = ["plane" /*, "passport", "money", "vacuum", "planned parenthood", "abortion pill", "education"*/ ];
+const bonuses = [{
+        name: "plane",
+        points: +100,
+        class: 'plane',
+        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji">`,
+        backgroundImage: 'background-image: url(./img/plane-emoji.png)'
+    },
+    {
+        name: "passport",
+        points: +100,
+        class: 'passport',
+        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji">`
+    },
+    {
+        name: "money",
+        points: +100,
+        class: 'money',
+        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji">`,
+        backgroundImage: 'url(./img/money-emoji.png)'
+    }
+    /* "vacuum", "planned parenthood", "abortion pill", "education"*/
+];
 const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
 // note : harmoniser les points et rajouter des pays
@@ -140,10 +161,11 @@ let pointsCounter = document.getElementById('points-counter');
 
 let startButton = document.getElementById('start-button');
 
-// slot machine buttons and blocks
+// slot machine buttons
 let slotMachineButton = document.getElementById('slot-machine-button');
 let slotMachine = document.getElementById('slot-machine-image');
 let slotMachineContent = document.getElementById('slot-machine-content');
+// slot machine blocks
 let countriesBlock = document.getElementById('countries-block');
 let prosperityBlock = document.getElementById('prosperity-block');
 let numberOfWeeksBlock = document.getElementById('numberOfWeeks-block');
@@ -160,10 +182,10 @@ startButton.addEventListener('click', () => {
     startGame();
 });
 
-let boxButton = document.getElementById('box-button');
-boxButton.addEventListener('click', () => {
-    generatesBoxes();
-});
+// let boxButton = document.getElementById('box-button');
+// boxButton.addEventListener('click', () => {
+//     generatesBoxes();
+// });
 /**
  * add timeout to all 3 generate___ functions to make their result appear one after another
  */
@@ -232,8 +254,8 @@ function startGame() {
     // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
     startButton.classList.remove('is-visible');
-    boxButton.classList.remove('is-hidden');
-    boxButton.classList.add('is-visible');
+    // boxButton.classList.remove('is-hidden');
+    // boxButton.classList.add('is-visible');
     setInterval(() => {
         generatesBoxes();
     }, 1000);
@@ -244,8 +266,7 @@ function startGame() {
 // ---
 
 /**
- * @author Myriam Mira
- * Moves player 5px to the right when right arrow on the keyboard is pressed
+ * x Moves player 5px to the right when right arrow on the keyboard is pressed
  */
 function playerMovesRight() {
     if (playerPosition < 345) {
@@ -255,7 +276,7 @@ function playerMovesRight() {
 }
 
 /**
- * Moves player 5px to the left when left arrow on the keyboard is pressed
+ * x Moves player 5px to the left when left arrow on the keyboard is pressed
  */
 function playerMovesLeft() {
     if (playerPosition > 0) {
@@ -307,7 +328,15 @@ function generatesBoxes() {
  */
 function generateBonus(position) {
     incrementedId += 1;
-    let newBonus = `<div class="box bonus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    console.log('generate bonus marche');
+    console.log(Math.floor(Math.random() * (bonuses.length)));
+    let randomBonusIndex = Math.floor(Math.random() * (bonuses.length));
+    let randomBonus = bonuses[randomBonusIndex];
+    console.log(randomBonus);
+    console.log(randomBonus.class);
+    console.log(bonuses);
+    console.log(bonuses[randomBonusIndex]);
+    let newBonus = `<div class="box bonus ${randomBonus.class}" id="${incrementedId}" style="top: 0; left: ${position}px;">${randomBonus.htmlImg}</div>`;
     let div = document.createElement('div');
     div.innerHTML += newBonus;
     gameBoard.appendChild(div);
@@ -344,10 +373,7 @@ function generateRandomPosition() {
  *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
  *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
-
-
 function makeBoxesGoDown(box) {
-    // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     let boxYPosition = stringToNumber(box.style.top);
     if (isGameFinished === false) {
         if (boxYPosition < 447) {
@@ -368,6 +394,7 @@ function makeBoxesGoDown(box) {
  * if collision ---> removes box from screen
  */
 function removeBox(element) {
+    // A améliorer --> supprimer complètement la div au lieu de la masquer
     element.classList.add('is-hidden');
 }
 
@@ -377,10 +404,9 @@ function removeBox(element) {
  * calls checkIfGameIsFinished;
  */
 function detectCollisionAll() {
-    console.log('rentrée dans detectcollision');
-    console.log(allBoxes);
     Array.from(allBoxes).forEach(element => {
         detectCollision(element);
+        updatePoints();
     });
 }
 
@@ -388,15 +414,12 @@ function detectCollision(element) {
     let boxRect = element.getBoundingClientRect();
     let playerRect = playerCursor.getBoundingClientRect();
     let collisionTop = boxRect.bottom >= playerRect.top;
-    let collisionLeft = playerRect.right >= boxRect.right &&  boxRect.right >= playerRect.left;
-    let collisionRight = playerRect.left <= boxRect.left  &&  boxRect.left <= playerRect.right;
-    console.log('collision right ' + collisionRight);
-    console.log('collision left ' + collisionLeft);
-    console.log('collision top ' + collisionTop);
+    let collisionLeft = playerRect.right >= boxRect.right && boxRect.right >= playerRect.left;
+    let collisionRight = playerRect.left <= boxRect.left && boxRect.left <= playerRect.right;
     if (collisionTop && (collisionLeft || collisionRight)) {
         console.log('BOOOOOOOOOM');
-        player.points += 5;
         removeBox(element);
+        updatePoints();
     }
 }
 
@@ -405,9 +428,10 @@ function detectCollision(element) {
  * if collision with a malus, withdraws points from this.points
  * displays updated points on the screen
  */
-function updatePoints() {
-    player.points += // selon nb de points de l'élément touché
-        pointsCounter.innerHTML = player.points;
+function updatePoints(element) {
+    // let elementPoints = element.points;
+    // player.points += elementPoints;
+    // pointsCounter.innerHTML = player.points;
 }
 
 /**
@@ -420,11 +444,11 @@ function updatePoints() {
 
 function checkIfGameIsFinished() {
     if (pointsCounter >= 1000) {
-        // call youWon()
+        youWon();
         isGameFinished = true;
         return isGameFinished;
     } else if (pointsCounter <= 0) {
-        // call youLost()
+        youLost();
         isGameFinished = true;
         return isGameFinished;
     }
@@ -451,9 +475,9 @@ function soundEffect() {
  * displays thank you message and links (github)
  */
 function youWon() {
-
+document.innerHTML += `<div id="won" class="game-finished">YOU WON! Congratulations!<br>You managed to access basic human rights!</div>`
 }
 
 function youLost() {
-
+    document.innerHTML += `<div id="lost" class="game-finished">YOU LOST! You were denied basic human rights!</div>`
 }
