@@ -227,7 +227,7 @@ function startGame() {
         } else if (event.keyCode === 39) {
             playerMovesRight();
         }
-        detectCollision();
+        detectCollisionAll();
     });
     // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
@@ -350,7 +350,7 @@ function makeBoxesGoDown(box) {
             boxYPosition += 1;
             box.style.top = boxYPosition + 'px';
             // setInterval(function () {}, 100);
-            detectCollision();
+            detectCollision(box);
             window.requestAnimationFrame(() => makeBoxesGoDown(box));
         } else {
             removeBox(box);
@@ -372,23 +372,28 @@ function removeBox(element) {
  * calls updatesPoints;
  * calls checkIfGameIsFinished;
  */
-function detectCollision() {
+function detectCollisionAll() {
     console.log('rentrée dans detectcollision');
     console.log(allBoxes);
     Array.from(allBoxes).forEach(element => {
-        console.log('rentrée dans foreach');
-        let boxRect = element.getBoundingClientRect();
-        let playerRect = playerCursor.getBoundingClientRect();
-        let collisionTop = boxRect.bottom >= playerRect.top;
-        let collisionLeft = playerRect.right >= boxRect.right >= playerRect.left;
-        let collisionRight = playerRect.left <= boxRect.left <= playerRect.right;
-        if (collisionTop && (collisionLeft || collisionRight)) {
-
-            console.log('BOOOOOOOOOM');
-            player.points += 5;
-            removeBox(element);
-        }
+        detectCollision(element);
     });
+}
+
+function detectCollision(element) {
+    let boxRect = element.getBoundingClientRect();
+    let playerRect = playerCursor.getBoundingClientRect();
+    let collisionTop = boxRect.bottom >= playerRect.top;
+    let collisionLeft = playerRect.right >= boxRect.right &&  boxRect.right >= playerRect.left;
+    let collisionRight = playerRect.left <= boxRect.left  &&  boxRect.left <= playerRect.right;
+    console.log('collision right ' + collisionRight);
+    console.log('collision left ' + collisionLeft);
+    console.log('collision top ' + collisionTop);
+    if (collisionTop && (collisionLeft || collisionRight)) {
+        console.log('BOOOOOOOOOM');
+        player.points += 5;
+        removeBox(element);
+    }
 }
 
 /**
