@@ -5,7 +5,7 @@ class Player {
     constructor(x) {
         this.x = x;
         // this.y = y;
-        this.points = 500;
+        this.points = 10;
         this.country;
         this.wealth;
         this.weeks;
@@ -487,9 +487,14 @@ function stopGame() {
  * displays thank you message and links (github)
  */
 function youWon() {
-    document.innerHTML += `<div id="won" class="game-finished">YOU WON! Congratulations!<br>You managed to access basic human rights!</div>`
+    let wonDive = document.getElementById('won');
+    wonDive.classList.add('is-visible');
+    wonDive.classList.remove('is-hidden');
 }
 
 function youLost() {
-    document.innerHTML += `<div id="lost" class="game-finished">YOU LOST! You were denied basic human rights!</div>`
+    let lostDiv = document.getElementById('lost');
+    lostDiv.classList.add('is-visible');
+    lostDiv.classList.remove('is-hidden');
 }
+

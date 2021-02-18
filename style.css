@@ -204,4 +204,16 @@ h5 {
     background-color: white;
     font-family: 'Ultra', serif;
     width: 400px;
+    position: fixed;
+    padding: 20px;
+    border: solid 3px black;
+    text-align: center;
+}
+
+#won {
+    top: 397px;
+}
+
+#lost {
+    top: 410px;
 }
