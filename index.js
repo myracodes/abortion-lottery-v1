@@ -18,6 +18,7 @@ let x = playerCursor.style.left;
 let playerPosition = 0;
 const gameBoard = document.getElementById('game-board');
 
+// getElements is better here because it stays up to date (querySelectorAll would require to be udpated)
 let allBoxes = document.getElementsByClassName('box');
 
 const player = new Player(x);
@@ -226,6 +227,7 @@ function startGame() {
         } else if (event.keyCode === 39) {
             playerMovesRight();
         }
+        detectCollision();
     });
     // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
@@ -289,7 +291,6 @@ function generatesBoxes() {
         } else {
             generateMalus(randomPosition);
         }
-        window.requestAnimationFrame(makeBoxesGoDown(incrementedId));
     }
 }
 
@@ -345,13 +346,15 @@ function makeBoxesGoDown(box) {
     // ajouter request animation frame (calculer avec modulo pour décider l'intervalle d'apparition)
     let boxYPosition = stringToNumber(box.style.top);
     if (isGameFinished === false) {
-        if (boxYPosition < 445) {
+        if (boxYPosition < 447) {
             boxYPosition += 1;
             box.style.top = boxYPosition + 'px';
-            setInterval(function () {}, 1000);
+            // setInterval(function () {}, 100);
+            detectCollision();
             window.requestAnimationFrame(() => makeBoxesGoDown(box));
+        } else {
+            removeBox(box);
         }
-
     }
 }
 
@@ -360,8 +363,8 @@ function makeBoxesGoDown(box) {
  * if box y = 0 ---> removes box from screen
  * if collision ---> removes box from screen
  */
-function removeBoxes() {
-
+function removeBox(element) {
+    element.classList.add('is-hidden');
 }
 
 /**
@@ -370,7 +373,22 @@ function removeBoxes() {
  * calls checkIfGameIsFinished;
  */
 function detectCollision() {
+    console.log('rentrée dans detectcollision');
+    console.log(allBoxes);
+    Array.from(allBoxes).forEach(element => {
+        console.log('rentrée dans foreach');
+        let boxRect = element.getBoundingClientRect();
+        let playerRect = playerCursor.getBoundingClientRect();
+        let collisionTop = boxRect.bottom >= playerRect.top;
+        let collisionLeft = playerRect.right >= boxRect.right >= playerRect.left;
+        let collisionRight = playerRect.left <= boxRect.left <= playerRect.right;
+        if (collisionTop && (collisionLeft || collisionRight)) {
 
+            console.log('BOOOOOOOOOM');
+            player.points += 5;
+            removeBox(element);
+        }
+    });
 }
 
 /**
