@@ -234,6 +234,9 @@ function startGame() {
     startButton.classList.remove('is-visible');
     boxButton.classList.remove('is-hidden');
     boxButton.classList.add('is-visible');
+    setInterval(() => {
+        generatesBoxes();
+    }, 1000);
 }
 
 // ---
@@ -269,6 +272,7 @@ function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
     return parseInt(stringWithoutPx);
 }
+
 
 /**
  *  generates boxes (either bonus or malus) every 1 sec;
@@ -347,7 +351,7 @@ function makeBoxesGoDown(box) {
     let boxYPosition = stringToNumber(box.style.top);
     if (isGameFinished === false) {
         if (boxYPosition < 447) {
-            boxYPosition += 1;
+            boxYPosition += 2;
             box.style.top = boxYPosition + 'px';
             // setInterval(function () {}, 100);
             detectCollision(box);
