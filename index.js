@@ -26,34 +26,40 @@ const player = new Player(x);
 const bonuses = [{
         name: "plane",
         points: +100,
-        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus">`
+        class: 'bonus',
+        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus plane" data-points='${100}'>`
     },
     {
         name: "passport",
         points: +100,
-        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus">`
+        class: 'bonus',
+        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus passport" data-points='${100}'>`
     },
     {
         name: "money",
         points: +100,
-        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus">`
+        class: 'bonus',
+        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus money" data-points='${100}'>`
     }
     /* "vacuum", "planned parenthood", "abortion pill", "education"*/
 ];
 const maluses = [{
     name: "PCOS",
     points: -100,
-    htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus">`
+    class: 'malus',
+    htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus pcos">`
 },
 {
-    name: "Marty",
+    name: "Trump",
     points: -100,
-    htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus">`
+    class: 'malus',
+    htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus trump">`
 },
 {
     name: "hanger",
     points: -100,
-    htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus">`
+    class: 'malus',
+    htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus hanger">`
 }
     /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
@@ -268,6 +274,8 @@ function startGame() {
     // boxButton.classList.add('is-visible');
     setInterval(() => {
         generatesBoxes();
+       
+        console.log("allBoxes",allBoxes.length); 
     }, 1000);
 }
 
@@ -401,7 +409,7 @@ function makeBoxesGoDown(box) {
  */
 function removeBox(element) {
     // A améliorer --> supprimer complètement la div au lieu de la masquer
-    element.classList.add('is-hidden');
+    element.remove();
 }
 
 /**
@@ -412,7 +420,7 @@ function removeBox(element) {
 function detectCollisionAll() {
     Array.from(allBoxes).forEach(element => {
         detectCollision(element);
-        updatePoints();
+        updatePoints(element);
     });
 }
 
@@ -423,9 +431,9 @@ function detectCollision(element) {
     let collisionLeft = playerRect.right >= boxRect.right && boxRect.right >= playerRect.left;
     let collisionRight = playerRect.left <= boxRect.left && boxRect.left <= playerRect.right;
     if (collisionTop && (collisionLeft || collisionRight)) {
-        console.log('BOOOOOOOOOM');
+        console.log("BEFORE REMOVE:",element.lastChild);
         removeBox(element);
-        updatePoints();
+        updatePoints(element);
     }
 }
 
@@ -435,8 +443,13 @@ function detectCollision(element) {
  * displays updated points on the screen
  */
 function updatePoints(element) {
+    
+    console.log(element.lastChild);
+    console.log(element.lastChild.dataset.points);
+    console.log('points:', +element.lastChild.dataset.points);
     // let elementPoints = element.points;
     // player.points += elementPoints;
+    // player.points += element. ;
     // pointsCounter.innerHTML = player.points;
 }
 
