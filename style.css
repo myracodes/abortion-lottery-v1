@@ -74,6 +74,11 @@ h5 {
     background-color: rgba(255, 255, 255, 0.781);
 }
 
+.horizontal-display {
+    display: flex;
+    align-items: center;
+}
+
 #slot-machine {
     display: flex;
     flex-direction: column;
@@ -143,7 +148,9 @@ h5 {
     bottom: 300px;
 }
 
-#countries-block, #numberOfWeeks-block, #prosperity-block {
+#countries-block,
+#numberOfWeeks-block,
+#prosperity-block {
     width: 65px;
 }
 
@@ -160,7 +167,7 @@ h5 {
     width: 400px;
     height: 500px;
     position: absolute;
-    top: 600px;
+    left: 50%;
     border: solid 5px black;
     background-color: white;
 }
@@ -190,4 +197,11 @@ h5 {
 
 .is-visible {
     visibility: visible;
+}
+
+#won,
+#lost {
+    background-color: white;
+    font-family: 'Ultra', serif;
+    width: 400px;
 }

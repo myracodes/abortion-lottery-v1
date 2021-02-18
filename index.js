@@ -25,43 +25,44 @@ const player = new Player(x);
 
 const bonuses = [{
         name: "plane",
-        points: +100,
+        // points: +150,
         class: 'bonus',
-        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus plane" data-points='${100}'>`
+        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus plane" data-points='${150}'>`
     },
     {
         name: "passport",
-        points: +100,
+        // points: +100,
         class: 'bonus',
         htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus passport" data-points='${100}'>`
     },
     {
         name: "money",
-        points: +100,
+        // points: +200,
         class: 'bonus',
-        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus money" data-points='${100}'>`
+        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus money" data-points='${200}'>`
     }
     /* "vacuum", "planned parenthood", "abortion pill", "education"*/
 ];
 const maluses = [{
-    name: "PCOS",
-    points: -100,
-    class: 'malus',
-    htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus pcos">`
-},
-{
-    name: "Trump",
-    points: -100,
-    class: 'malus',
-    htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus trump">`
-},
-{
-    name: "hanger",
-    points: -100,
-    class: 'malus',
-    htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus hanger">`
-}
-    /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
+        name: "PCOS",
+        // points: -50,
+        class: 'malus',
+        htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus pcos" data-points='${-50}'>`
+    },
+    {
+        name: "Trump",
+        // points: -100,
+        class: 'malus',
+        htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus trump" data-points='${-100}'>`
+    },
+    {
+        name: "hanger",
+        // points: -200,
+        class: 'malus',
+        htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus hanger" data-points='${-200}'>`
+    }
+    /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/
+];
 
 // note : harmoniser les points et rajouter des pays
 //illégal= -200pts // sous conditions= -50pts // droit récent= +0pt // droit ancré= 100pts // nb de semaines plus long= 150pts
@@ -198,10 +199,6 @@ startButton.addEventListener('click', () => {
     startGame();
 });
 
-// let boxButton = document.getElementById('box-button');
-// boxButton.addEventListener('click', () => {
-//     generatesBoxes();
-// });
 /**
  * add timeout to all 3 generate___ functions to make their result appear one after another
  */
@@ -259,7 +256,6 @@ function startGame() {
     slotMachineContent.classList.add('is-hidden');
     // replace keyCode by the most recent feature -- KeyboardEvent.code maybe
     document.addEventListener("keydown", event => {
-        console.log(playerCursor);
         if (event.keyCode === 37) {
             playerMovesLeft();
         } else if (event.keyCode === 39) {
@@ -267,15 +263,10 @@ function startGame() {
         }
         detectCollisionAll();
     });
-    // removes start game button (is-hidden class)
     startButton.classList.add('is-hidden');
     startButton.classList.remove('is-visible');
-    // boxButton.classList.remove('is-hidden');
-    // boxButton.classList.add('is-visible');
     setInterval(() => {
         generatesBoxes();
-       
-        console.log("allBoxes",allBoxes.length); 
     }, 1000);
 }
 
@@ -420,7 +411,6 @@ function removeBox(element) {
 function detectCollisionAll() {
     Array.from(allBoxes).forEach(element => {
         detectCollision(element);
-        updatePoints(element);
     });
 }
 
@@ -431,26 +421,21 @@ function detectCollision(element) {
     let collisionLeft = playerRect.right >= boxRect.right && boxRect.right >= playerRect.left;
     let collisionRight = playerRect.left <= boxRect.left && boxRect.left <= playerRect.right;
     if (collisionTop && (collisionLeft || collisionRight)) {
-        console.log("BEFORE REMOVE:",element.lastChild);
         removeBox(element);
         updatePoints(element);
     }
 }
 
 /**
- * if collision with a bonus, adds points to this.points
- * if collision with a malus, withdraws points from this.points
+ * if collision, adds/removes points to player.points
  * displays updated points on the screen
  */
 function updatePoints(element) {
-    
-    console.log(element.lastChild);
-    console.log(element.lastChild.dataset.points);
-    console.log('points:', +element.lastChild.dataset.points);
-    // let elementPoints = element.points;
-    // player.points += elementPoints;
-    // player.points += element. ;
-    // pointsCounter.innerHTML = player.points;
+    let newPoints = element.lastChild.dataset.points;
+    let newPointsTypeNumber = stringToNumber(newPoints);
+    player.points += newPointsTypeNumber;
+    pointsCounter.innerHTML = player.points;
+    checkIfGameIsFinished();
 }
 
 /**
@@ -462,13 +447,15 @@ function updatePoints(element) {
  */
 
 function checkIfGameIsFinished() {
-    if (pointsCounter >= 1000) {
+    if (player.points >= 1000) {
         youWon();
         isGameFinished = true;
+        stopGame();
         return isGameFinished;
-    } else if (pointsCounter <= 0) {
+    } else if (player.points <= 0) {
         youLost();
         isGameFinished = true;
+        stopGame();
         return isGameFinished;
     }
 }
@@ -488,13 +475,19 @@ function soundEffect() {
 // END OF THE GAME
 // ---
 
+function stopGame() {
+    gameBoard.classList.add('is-hidden');
+    gameBoard.classList.remove('is-visible');
+    // ajouter bouton rejouer
+}
+
 /**
  * updates background music
  * updates page with either WIN or LOSE text with information about access to vip
  * displays thank you message and links (github)
  */
 function youWon() {
-document.innerHTML += `<div id="won" class="game-finished">YOU WON! Congratulations!<br>You managed to access basic human rights!</div>`
+    document.innerHTML += `<div id="won" class="game-finished">YOU WON! Congratulations!<br>You managed to access basic human rights!</div>`
 }
 
 function youLost() {
