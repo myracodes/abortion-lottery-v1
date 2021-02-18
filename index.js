@@ -26,26 +26,36 @@ const player = new Player(x);
 const bonuses = [{
         name: "plane",
         points: +100,
-        class: 'plane',
-        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji">`,
-        backgroundImage: 'background-image: url(./img/plane-emoji.png)'
+        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus">`
     },
     {
         name: "passport",
         points: +100,
-        class: 'passport',
-        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji">`
+        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus">`
     },
     {
         name: "money",
         points: +100,
-        class: 'money',
-        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji">`,
-        backgroundImage: 'url(./img/money-emoji.png)'
+        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus">`
     }
     /* "vacuum", "planned parenthood", "abortion pill", "education"*/
 ];
-const maluses = ["PCOS", "hanger", "Marty" /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
+const maluses = [{
+    name: "PCOS",
+    points: -100,
+    htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus">`
+},
+{
+    name: "Marty",
+    points: -100,
+    htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus">`
+},
+{
+    name: "hanger",
+    points: -100,
+    htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus">`
+}
+    /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/ ];
 
 // note : harmoniser les points et rajouter des pays
 //illégal= -200pts // sous conditions= -50pts // droit récent= +0pt // droit ancré= 100pts // nb de semaines plus long= 150pts
@@ -328,15 +338,9 @@ function generatesBoxes() {
  */
 function generateBonus(position) {
     incrementedId += 1;
-    console.log('generate bonus marche');
-    console.log(Math.floor(Math.random() * (bonuses.length)));
     let randomBonusIndex = Math.floor(Math.random() * (bonuses.length));
     let randomBonus = bonuses[randomBonusIndex];
-    console.log(randomBonus);
-    console.log(randomBonus.class);
-    console.log(bonuses);
-    console.log(bonuses[randomBonusIndex]);
-    let newBonus = `<div class="box bonus ${randomBonus.class}" id="${incrementedId}" style="top: 0; left: ${position}px;">${randomBonus.htmlImg}</div>`;
+    let newBonus = `<div class="box bonus" id="${incrementedId}" style="top: 0; left: ${position}px;">${randomBonus.htmlImg}</div>`;
     let div = document.createElement('div');
     div.innerHTML += newBonus;
     gameBoard.appendChild(div);
@@ -353,7 +357,9 @@ function generateBonus(position) {
  */
 function generateMalus(position) {
     incrementedId += 1;
-    let newMalus = `<div class="box malus" id="${incrementedId}" style="top: 0; left: ${position}px;"></div>`;
+    let randomMalusIndex = Math.floor(Math.random() * (maluses.length));
+    let randomMalus = maluses[randomMalusIndex];
+    let newMalus = `<div class="box malus" id="${incrementedId}" style="top: 0; left: ${position}px;">${randomMalus.htmlImg}</div>`;
     let div = document.createElement('div');
     div.innerHTML += newMalus;
     gameBoard.appendChild(div);
