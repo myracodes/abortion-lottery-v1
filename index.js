@@ -289,7 +289,7 @@ function startGame() {
  */
 function playerMovesRight() {
     if (playerPosition < 345) {
-        playerPosition += 8;
+        playerPosition += 10;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
@@ -299,7 +299,7 @@ function playerMovesRight() {
  */
 function playerMovesLeft() {
     if (playerPosition > 0) {
-        playerPosition -= 8;
+        playerPosition -= 10;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
