@@ -285,7 +285,7 @@ function startGame() {
 // ---
 
 /**
- * x Moves player 5px to the right when right arrow on the keyboard is pressed
+ * x called by eventListener stored in startGame function
  */
 function playerMovesRight() {
     if (playerPosition < 345) {
@@ -295,7 +295,7 @@ function playerMovesRight() {
 }
 
 /**
- * x Moves player 5px to the left when left arrow on the keyboard is pressed
+ * x called by eventListener stored in startGame function
  */
 function playerMovesLeft() {
     if (playerPosition > 0) {
@@ -305,8 +305,7 @@ function playerMovesLeft() {
 }
 
 /**
- * x prend une string en entrée et retourne un nb
- * finalement j'ai trouvé une autre méthode plus simple pour faire ça donc not used
+ * x receives a string as an argument and turns it to a number + removes 'px'
  */
 function stringToNumber(string) {
     let stringWithoutPx = string.replace('px', '');
@@ -315,15 +314,8 @@ function stringToNumber(string) {
 
 
 /**
- *  generates boxes (either bonus or malus) every 1 sec;
- *  use setinterval (+clearInterval?) et Math.random to generate on a random basis (cf cours W2D3)
- *  calls two other functions? generateBonus and generatemalus? Or works on its own? 
- *  va d'abord générer un nb aléatoire entre 0 et 1 pour choisir dans quel array il va choisir (bonus ou malus array)
- *  puis va générer un nb aléatoire entre 0 et [nb d'éléments dans l'array bonus ou malus] pour choisir quel bonus/malus est généré
- *  generates boxes at y=0 and x = random
- *  calls makeBoxesGoDown() for each box
- *  x stops when checkIfGameIsFinished returns true
- * if box class contains bonus or malus, alors appliquer un style ?
+ *  x calls two other functions: generateBonus and generatemalus
+ *  x stops running when checkIfGameIsFinished returns true
  */
 function generatesBoxes() {
     // ajouter feature pour vérifier qu'il n'y a pas déjà une boîte à cet endroit ?
