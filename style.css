@@ -14,19 +14,28 @@ bâtiments : planned parenthood, hospital, school, AN,
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 /* font-family: 'Poppins', sans-serif; */
 
+/* red: rgb(211, 46, 46) */
 /* malus colors: rgb(255, 255, 255) */
 /* bonus colors: #126831 */
 
+html {
+    background-image: url('./img/communication-kit/background.jpg');
+}
+
 html,
 body {
-    padding: 0 100px;
+    /* padding: 0 100px; */
+    margin: 0;
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('./img/hanger-pattern-2.jpg');
-    background-repeat: repeat;
     width: auto;
+}
+
+body {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.788);
 }
 
 h1,
@@ -37,7 +46,7 @@ h2 {
     color: rgb(211, 46, 46);
     animation-duration: 2s;
     animation-name: slidein;
-    background-color: rgba(255, 255, 255, 0.781);
+    /* background-color: rgba(255, 255, 255, 0.781); */
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 0;
@@ -59,7 +68,6 @@ h3,
 h4,
 h5 {
     font-family: 'Poppins', sans-serif;
-    background-color: rgba(255, 255, 255, 0.781);
     margin: 0;
     padding: 0 0 15px 0;
     text-align: center;
@@ -71,7 +79,6 @@ h5 {
     flex-direction: column;
     align-items: center;
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.781);
 }
 
 .horizontal-display {
@@ -109,12 +116,14 @@ h5 {
 #points-block {
     background-color: black;
     color: ivory;
-    width: 180px;
+    width: 180px;    
+    font-family: 'Poppins', sans-serif;
     font-size: 15pt;
 }
 
 #points-counter {
     font-size: 25pt;
+    font-family: 'Ranchers', cursive;
 }
 
 #slot-machine-button:hover,
@@ -133,7 +142,7 @@ h5 {
 
 #slot-machine-content {
     padding: 0;
-    font-family: 'Ranchers', cursive;
+    font-family: 'Poppins', sans-serif;
     border: solid 3px black;
     color: black;
     text-align: center;
@@ -216,6 +225,11 @@ h5 {
 
 #won {
     top: 397px;
+}
+
+#won > p,
+#lost > p {
+    font-family: 'Poppins', sans-serif;
 }
 
 #lost {
