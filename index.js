@@ -27,41 +27,40 @@ const player = new Player(x);
 
 const bonuses = [{
         name: "plane",
-        // points: +150,
         class: 'bonus',
-        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus plane" data-points='${150}'>`
+        htmlImg: `<img src="./img/plane-emoji.png" alt="plane-emoji" class="bonus plane" data-points='${50}'>`
     },
     {
         name: "passport",
-        // points: +100,
         class: 'bonus',
-        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus passport" data-points='${100}'>`
+        htmlImg: `<img src="./img/passport-emoji.png" alt="passport-emoji" class="bonus passport" data-points='${20}'>`
     },
     {
         name: "money",
-        // points: +200,
         class: 'bonus',
-        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus money" data-points='${200}'>`
+        htmlImg: `<img src="./img/money-emoji.png" alt="money-emoji" class="bonus money" data-points='${30}'>`
     }
     /* "vacuum", "planned parenthood", "abortion pill", "education"*/
 ];
 const maluses = [{
         name: "PCOS",
-        // points: -50,
         class: 'malus',
-        htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus pcos" data-points='${-50}'>`
+        htmlImg: `<img src="./img/pcos-emoji.png" alt="pcos-emoji" class="malus pcos" data-points='${-10}'>`
     },
     {
         name: "Trump",
-        // points: -100,
         class: 'malus',
-        htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus trump" data-points='${-100}'>`
+        htmlImg: `<img src="./img/trump-emoji.png" alt="trump-emoji" class="malus trump" data-points='${-50}'>`
     },
     {
         name: "hanger",
-        // points: -200,
         class: 'malus',
         htmlImg: `<img src="./img/hanger-emoji.png" alt="hanger-emoji" class="malus hanger" data-points='${-200}'>`
+    },
+    {
+        name: "Francis",
+        class: "malus",
+        htmlImg: `<img src="./img/pope-francis-emoji.png" alt="pope-francis" class="malus francis" data-points='${-40}'>`
     }
     /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/
 ];
@@ -275,7 +274,7 @@ function startGame() {
         });
         setInterval(() => {
             generatesBoxes();
-        }, 1000);
+        }, 500);
     }
     firstGame = false;
 }
