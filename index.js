@@ -65,7 +65,7 @@ const maluses = [{
     /*, "CIVITAS", "desert", "conscience clause", "ivg-info"*/
 ];
 
-// note : harmoniser les points et rajouter des pays
+
 //illégal= -200pts // sous conditions= -50pts // droit récent= +0pt // droit ancré= 100pts // nb de semaines plus long= 150pts
 const countries = [{
         name: "Afghanistan, -100pt", // toléré si danger pour la vie de la mère
@@ -180,7 +180,7 @@ let pointsCounter = document.getElementById('points-counter');
 
 let startButton = document.getElementById('start-button');
 
-// slot machine buttons
+// slot machine buttons & content
 let slotMachineButton = document.getElementById('slot-machine-button');
 let slotMachine = document.getElementById('slot-machine-image');
 let slotMachineContent = document.getElementById('slot-machine-content');
@@ -202,7 +202,8 @@ startButton.addEventListener('click', () => {
 });
 
 /**
- * add timeout to all 3 generate___ functions to make their result appear one after another
+ * x Generates a random country, prosperity, and number of weeks
+ * updates the points counter with the total
  */
 function launchesSlotMachine() {
     generatesCountry();
@@ -212,9 +213,9 @@ function launchesSlotMachine() {
     startButton.classList.remove('is-hidden');
     slotMachineButton.classList.add('is-hidden');
     slotMachineButton.classList.remove('is-visible');
-
     pointsCounter.innerHTML = player.points;
 }
+
 /**
  * x generates points in the beginning depending on your country
  * x adds points to player.points
@@ -288,7 +289,7 @@ function startGame() {
  */
 function playerMovesRight() {
     if (playerPosition < 345) {
-        playerPosition += 10;
+        playerPosition += 11;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
@@ -298,7 +299,7 @@ function playerMovesRight() {
  */
 function playerMovesLeft() {
     if (playerPosition > 0) {
-        playerPosition -= 10;
+        playerPosition -= 11;
         playerCursor.style.left = playerPosition + 'px';
     }
 }
@@ -383,9 +384,9 @@ function generateRandomPosition() {
 
 /**
  * makes the boxes move down on the screen towards the player
- *  box.position sur axe vertical est comprise entre 0 et 500
- *  quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
- *  toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
+ * box.position sur axe vertical est comprise entre 0 et 500
+ * quand box.position(y) = 500 -> la supprimer/cacher/faire disparaître 
+ * toutes les 0,1 sec, incrémenter Y pour faire descendre la boîte
  */
 function makeBoxesGoDown(box) {
     let boxYPosition = stringToNumber(box.style.top);
@@ -403,12 +404,9 @@ function makeBoxesGoDown(box) {
 }
 
 /**
- * checks the position and state of boxes
- * if box y = 0 ---> removes box from screen
- * if collision ---> removes box from screen
+ * x Is called when collision occurs or when the box has reached the bottom of the game board
  */
 function removeBox(element) {
-    // A améliorer --> supprimer complètement la div au lieu de la masquer
     element.remove();
 }
 
@@ -448,13 +446,9 @@ function updatePoints(element) {
 }
 
 /**
- * after each collision, checks if points <= 0 ------ if so, TRUE = GAME OVER
- * after each collision, checks if points >= 1000 ------ if so, TRUE = YOU WON
- * after each collision, if none of the above are true, return false
- * x if TRUE: calls youWon() or youLost()
- * x returns boolean
+ * x after each collision, checks if game is finished and returns a boolean
+ * x if TRUE: calls youWon() || if FALSE: calls youLost()
  */
-
 function checkIfGameIsFinished() {
     if (player.points >= 1000) {
         youWon();
@@ -477,7 +471,7 @@ function checkIfGameIsFinished() {
  * if game won --> congrats sound
  */
 function soundEffect() {
-
+// à faire
 }
 
 // ---
@@ -496,8 +490,7 @@ function stopGame() {
 
 /**
  * updates background music
- * updates page with either WIN or LOSE text with information about access to vip
- * displays thank you message and links (github)
+ * x updates page with either WIN or LOSE text with information about access to abortion in the player's country
  */
 function youWon() {
     wonDiv.classList.add('is-visible');

@@ -5,8 +5,6 @@ route : fixe mais avec qqs éléments (bâtiments) qui déroulent en boucle pour
 bâtiments : planned parenthood, hospital, school, AN,
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
-/*font-family: 'Modak', cursive; */
 @import url('https://fonts.googleapis.com/css2?family=Ranchers&display=swap');
 /* font-family: 'Ranchers', cursive; */
 @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
@@ -27,6 +25,8 @@ body {
     /* padding: 0 100px; */
     margin: 0;
     font-family: 'Poppins', sans-serif;
+    font-weight: 1000;
+    font-size: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,7 +109,7 @@ h5 {
     margin-bottom: 5px;
     padding: 10px;
     width: fit-content;
-    font-family: 'Ranchers', cursive;
+    font-family: 'Poppins', sans-serif;
     background-color: rgba(255, 255, 255, 0.781);
 }
 
@@ -198,10 +198,10 @@ h5 {
 }
 
 #player {
-    width: 50px;
-    height: auto;
+    width: auto;
+    height: 56px;
     position: relative;
-    top: calc(500px - 70px);
+    top: calc(500px - 56px);
 }
 
 .is-hidden {
