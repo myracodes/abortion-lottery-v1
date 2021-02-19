@@ -14,7 +14,7 @@ bâtiments : planned parenthood, hospital, school, AN,
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 /* font-family: 'Poppins', sans-serif; */
 
-/* malus colors: #96322d */
+/* malus colors: rgb(255, 255, 255) */
 /* bonus colors: #126831 */
 
 html,
@@ -63,7 +63,7 @@ h5 {
     margin: 0;
     padding: 0 0 15px 0;
     text-align: center;
-    width: 400px;
+    width: 600px;
 }
 
 .game-header {
@@ -87,7 +87,7 @@ h5 {
 
 #slot-machine-image {
     margin-top: 0px;
-    width: 500px;
+    width: 400px;
     position: static;
     z-index: 10;
 }
@@ -144,10 +144,11 @@ h5 {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 270px;
-    height: 100px;
+    width: 280px;
+    height: 90px;
     font-size: 12pt;
-    bottom: 300px;
+    bottom: 292px;
+    left: -10px;
 }
 
 #countries-block,
@@ -224,7 +225,7 @@ h5 {
 a {
     text-decoration: none;
     color: black;
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: 'Poppins', sans-serif;
     background-color: rgba(255, 255, 255, 0.801);
     padding: 2px;
@@ -233,7 +234,6 @@ a {
 a:hover {
     color: grey;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.3em;
     background-color: rgba(255, 255, 255, 0.801);
     text-decoration: underline;
 
