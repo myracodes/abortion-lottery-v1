@@ -16,13 +16,28 @@ bâtiments : planned parenthood, hospital, school, AN,
 /* malus colors: rgb(255, 255, 255) */
 /* bonus colors: #126831 */
 
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 100%;
+    }
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}
+
 html {
     background-image: url('./img/communication-kit/background.jpg');
 }
 
+body {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.788);
+}
+
 html,
 body {
-    /* padding: 0 100px; */
     margin: 0;
     font-family: 'Poppins', sans-serif;
     font-weight: 1000;
@@ -31,11 +46,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: auto;
-}
-
-body {
-    padding: 30px;
-    background-color: rgba(255, 255, 255, 0.788);
 }
 
 h1,
@@ -53,21 +63,9 @@ h2 {
     box-sizing: content-box;
 }
 
-@keyframes slidein {
-    from {
-        margin-left: 100%;
-        width: 100%;
-    }
-    to {
-        margin-left: 0%;
-        width: 100%;
-    }
-}
-
 h3,
 h4,
 h5 {
-    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0 0 15px 0;
     text-align: center;
@@ -81,24 +79,18 @@ h5 {
     margin: 0;
 }
 
+/* GLOBAL LAYOUT */
 .horizontal-display {
     display: flex;
     align-items: center;
 }
-
-#slot-machine {
+.vertical-display {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#slot-machine-image {
-    margin-top: 0px;
-    width: 400px;
-    position: static;
-    z-index: 10;
-}
-
+/* BUTTONS */
 #slot-machine-button,
 #start-button,
 #reset-button,
@@ -108,41 +100,58 @@ h5 {
     border: solid 3px black;
     margin-bottom: 5px;
     padding: 10px;
-    width: fit-content;
-    font-family: 'Poppins', sans-serif;
+    width: 180px;
+    height: 50px;
     background-color: rgba(255, 255, 255, 0.781);
 }
+#slot-machine-button:hover,
+#start-button:hover,
+#reset-button:hover,
+#box-button:hover {
+    border: solid 3px rgb(211, 46, 46);
+    color: rgb(211, 46, 46);
+    background-color: rgba(255, 255, 255);
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: ease-out 0.1s;
+}
+#start-button,
+#reset-button {
+    text-align: center;
+    border: solid 3px black;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 180px;
+    height: 20px;
+}
 
+/* POINTS BLOCK */
 #points-block {
     background-color: black;
     color: ivory;
-    width: 180px;    
-    font-family: 'Poppins', sans-serif;
+    width: 180px;
+    height: 70px;
     font-size: 15pt;
 }
-
 #points-counter {
     font-size: 25pt;
     font-family: 'Ranchers', cursive;
 }
 
-#slot-machine-button:hover,
-#start-button:hover,
-#reset-button:hover,
-#box-button:hover {
-    border: solid 3px red;
-    color: red;
-    background-color: rgba(255, 255, 255);
-    width: fit-content;
-    cursor: pointer;
-    font-size: 1.5em;
-    transition: ease-out 0.5s;
-    /* box-shadow: grey; */
+/*  SLOT MACHINE */
+#slot-machine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
+#slot-machine-image {
+    margin-top: 0px;
+    width: 400px;
+    position: static;
+    z-index: 10;
+}
 #slot-machine-content {
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+    padding: 5px;
     border: solid 3px black;
     color: black;
     text-align: center;
@@ -153,29 +162,19 @@ h5 {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 280px;
+    width: 260px;
     height: 90px;
-    font-size: 12pt;
-    bottom: 292px;
+    font-size: 10.5pt;
+    bottom: 296px;
     left: -10px;
 }
-
 #countries-block,
 #numberOfWeeks-block,
 #prosperity-block {
     width: 65px;
 }
 
-#start-button,
-#reset-button {
-    text-align: center;
-    border: solid 3px black;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: fit-content;
-}
-
-
+/* GAME BOARD */
 #game-board {
     width: 400px;
     height: 500px;
@@ -185,18 +184,17 @@ h5 {
     background-color: white;
 }
 
+/* IN-GAME ELEMENTS */
 .bonus {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     position: absolute;
 }
-
 .malus {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     position: absolute;
 }
-
 #player {
     width: auto;
     height: 56px;
@@ -204,38 +202,39 @@ h5 {
     top: calc(500px - 56px);
 }
 
+/* VISIBILITY */
 .is-hidden {
     visibility: hidden;
 }
-
 .is-visible {
     visibility: visible;
 }
 
+/* END OF GAME */
 #won,
 #lost {
     background-color: white;
     font-family: 'Ultra', serif;
-    width: 400px;
+    width: 375px;
     position: fixed;
-    padding: 20px;
+    top: 390px;
+    right: 180px;
+    padding: 10px;
     border: solid 3px black;
     text-align: center;
 }
-
 #won {
     top: 397px;
 }
-
 #won > p,
 #lost > p {
     font-family: 'Poppins', sans-serif;
 }
-
 #lost {
     top: 410px;
 }
 
+/* LINKS */
 a {
     text-decoration: none;
     color: black;
@@ -244,11 +243,9 @@ a {
     background-color: rgba(255, 255, 255, 0.801);
     padding: 2px;
 }
-
 a:hover {
     color: grey;
     font-family: 'Poppins', sans-serif;
     background-color: rgba(255, 255, 255, 0.801);
     text-decoration: underline;
-
 }

@@ -149,23 +149,23 @@ const prosperity = [{
     }
 ];
 const numberOfWeeks = [{
-        weeks: "3 weeks, 50pts",
+        weeks: "3 weeks pregnant, 50pts",
         points: 50
     },
     {
-        weeks: "6 weeks, +0pt",
+        weeks: "6 weeks pregnant, +0pt",
         points: 0
     },
     {
-        weeks: "9 weeks, -50pts",
+        weeks: "9 weeks pregnant, -50pts",
         points: -50
     },
     {
-        weeks: "12 weeks, -100pts",
+        weeks: "12 weeks pregnant, -100pts",
         points: -100
     },
     {
-        weeks: "15 weeks, -150pts",
+        weeks: "15 weeks pregnant, -150pts",
         points: -150
     }
 ];
@@ -241,7 +241,7 @@ function generatesProsperity() {
 function generatesWeeks() {
     player.weeks = numberOfWeeks[Math.floor(Math.random() * (numberOfWeeks.length - 1))];
     player.points += player.weeks.points;
-    numberOfWeeksBlock.innerHTML = 'Pregnant for ' + player.weeks.weeks;
+    numberOfWeeksBlock.innerHTML = player.weeks.weeks;
 }
 
 /**
